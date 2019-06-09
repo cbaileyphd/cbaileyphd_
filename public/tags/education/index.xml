@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Education on Chris Bailey, PhD, CSCS*D, RSCC</title>
+    <link>/tags/education/</link>
+    <description>Recent content in Education on Chris Bailey, PhD, CSCS*D, RSCC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/education/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Making sense of student evaluations: A data science/text mining approach</title>
+      <link>/post/making-sense-of-student-evaluations-a-data-science-text-mining-approach/</link>
+      <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/making-sense-of-student-evaluations-a-data-science-text-mining-approach/</guid>
+      <description>After every semester I find myself in the same situation, reading through student evaluations and comments trying to find some value in them. The quantitative section may be seemingly straightforward, with higher values being better, but they are often compared to and normalized to other courses that are completely different from yours. But at least they are objective. I usually struggle the most with the comments section.</description>
+    </item>
+    
+  </channel>
+</rss>

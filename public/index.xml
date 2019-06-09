@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chris Bailey, PhD, CSCS*D, RSCC</title>
+    <link>/</link>
+    <description>Recent content on Chris Bailey, PhD, CSCS*D, RSCC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 20 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Making sense of student evaluations: A data science/text mining approach</title>
+      <link>/post/making-sense-of-student-evaluations-a-data-science-text-mining-approach/</link>
+      <pubDate>Thu, 20 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/making-sense-of-student-evaluations-a-data-science-text-mining-approach/</guid>
+      <description>After every semester I find myself in the same situation, reading through student evaluations and comments trying to find some value in them. The quantitative section may be seemingly straightforward, with higher values being better, but they are often compared to and normalized to other courses that are completely different from yours. But at least they are objective. I usually struggle the most with the comments section.</description>
+    </item>
+    
+    <item>
+      <title>Bat Swing GRF Part 2: Analysis in R</title>
+      <link>/post/bat-swing-grf-part-2-analysis-in-r/</link>
+      <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/bat-swing-grf-part-2-analysis-in-r/</guid>
+      <description>Prior to analysis, these trials have already been cleaned. By that I mean that only the force production necessary for this movement are present in the data. There is no blank space or data with the athletes simply standing on the force plate. As a result of that, the analysis is much easier, but the force values of each force plate cannot be summed since the time has been altered (trimmed at the beginning or the end).</description>
+    </item>
+    
+    <item>
+      <title>Bat Swing Ground Reaction Forces Part 1</title>
+      <link>/post/bat-swing-ground-reaction-forces-part-1/</link>
+      <pubDate>Wed, 28 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/bat-swing-ground-reaction-forces-part-1/</guid>
+      <description>Similarities in Force-Time Curves Monitoring of jumping ground reaction force (GRF), especially in the vertical direction (vGRF) is becoming more common these days with more affordable force plate options and software. If you are willing to learn and put in the effort, you can design your own force-time curve analysis programs in R or python and avoid the budget hit. Matt Sams created an open source vertical jump analysis project for this purpose, coded in R with a shiny app.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/search/placeholder/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/search/placeholder/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/top/about/</guid>
+      <description>Chris Bailey, PhD, CSCS*D, RSCC Chris Bailey is a Clinical Assistant Professor in the Kinesiology, Health Promotion, and Recreation Department at the University of North Texas. He is a Certified Strength and Conditioning Specialist (CSCS) and a Registered Strength and Conditioning Coach (RSCC) through the National Strength and Conditioning Association (NSCA).
+At UNT, Chris teaches courses in athlete monitoring, biomechanics, quantitative analysis, quantitative procedures, strength and conditioning, and exercise test and prescription.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tops on Chris Bailey, PhD, CSCS*D, RSCC</title>
+    <link>/top/</link>
+    <description>Recent content in Tops on Chris Bailey, PhD, CSCS*D, RSCC</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/top/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/top/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/top/about/</guid>
+      <description>Chris Bailey, PhD, CSCS*D, RSCC Chris Bailey is a Clinical Assistant Professor in the Kinesiology, Health Promotion, and Recreation Department at the University of North Texas. He is a Certified Strength and Conditioning Specialist (CSCS) and a Registered Strength and Conditioning Coach (RSCC) through the National Strength and Conditioning Association (NSCA).
+At UNT, Chris teaches courses in athlete monitoring, biomechanics, quantitative analysis, quantitative procedures, strength and conditioning, and exercise test and prescription.</description>
+    </item>
+    
+  </channel>
+</rss>

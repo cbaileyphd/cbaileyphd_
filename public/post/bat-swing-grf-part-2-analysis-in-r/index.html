@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Chris Bailey, PhD, CSCS*D, RSCC">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="//img/header.png">
+    <meta property="twitter:image" content="//img/header.png" />
+    
+
+    
+    <meta name="title" content="Bat Swing GRF Part 2: Analysis in R" />
+    <meta property="og:title" content="Bat Swing GRF Part 2: Analysis in R" />
+    <meta property="twitter:title" content="Bat Swing GRF Part 2: Analysis in R" />
+    
+
+    
+    <meta name="description" content="A place for sport science, education, &amp; strength and conditioning">
+    <meta property="og:description" content="A place for sport science, education, &amp; strength and conditioning" />
+    <meta property="twitter:description" content="A place for sport science, education, &amp; strength and conditioning" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="sport sciecne, data science, education, , strength and conditioning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Bat Swing GRF Part 2: Analysis in R-Chris Bailey, PhD Blog</title>
+
+    <link rel="canonical" href="/post/bat-swing-grf-part-2-analysis-in-r/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Chris Bailey, PhD, CSCS*D, RSCC</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/athlete-monitoring">athlete-monitoring</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/baseball">baseball</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/data-science">data-science</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/education">education</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/header.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/baseball" title="Baseball">
+                            Baseball
+                        </a>
+                        
+                        <a class="tag" href="/tags/grf" title="GRF">
+                            GRF
+                        </a>
+                        
+                        <a class="tag" href="/tags/r" title="R">
+                            R
+                        </a>
+                        
+                    </div>
+                    <h1>Bat Swing GRF Part 2: Analysis in R</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+			Posted by 
+			
+		            Chris Bailey, PhD, CSCS*D, RSCC
+			 
+			on 
+			Wednesday, November 28, 2018
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                
+                
+                
+
+
+<p>Prior to analysis, these trials have already been cleaned. By that I mean that only the force production necessary for this movement are present in the data. There is no blank space or data with the athletes simply standing on the force plate. As a result of that, the analysis is much easier, but the force values of each force plate cannot be summed since the time has been altered (trimmed at the beginning or the end). Each athlete in this data set completed 3 trials and I’ve removed the name of one of them so it can be used as an example here.</p>
+<div id="read-your-data-in" class="section level2">
+<h2>Read your data in</h2>
+<p>First we need to read in the file. You can name assign it whatever name you want. I always pick something short.</p>
+<pre class="r"><code>F1&lt;-read.csv(&quot;Player1.csv&quot;)</code></pre>
+<p>Next, since these force plates are biaxial (vertical (GRFz) and mediolateral (GRFx) in this case), I want to get the resultant force produced. I’ll do that with Pythagorean theorem and assign it to a variable name for each trial and each leg (drive leg (DL) and stride leg (SL).</p>
+</div>
+<div id="get-the-resultant-forces" class="section level2">
+<h2>Get the resultant forces</h2>
+<pre class="r"><code>F1$DLRes1&lt;-sqrt(F1$GRFzDL1^2 + F1$GRFxDL1^2)
+F1$SLRes1&lt;-sqrt(F1$GRFzSL1^2 + F1$GRFxSL1^2)
+F1$DLRes2&lt;-sqrt(F1$GRFzDL2^2 + F1$GRFxDL2^2)
+F1$SLRes2&lt;-sqrt(F1$GRFzSL2^2 + F1$GRFxSL2^2)
+F1$DLRes3&lt;-sqrt(F1$GRFzDL3^2 + F1$GRFxDL3^2)
+F1$SLRes3&lt;-sqrt(F1$GRFzSL3^2 + F1$GRFxSL3^2)</code></pre>
+</div>
+<div id="calculating-the-variables-of-interest" class="section level2">
+<h2>Calculating the variables of interest</h2>
+<p>Now lets get to performing the analysis. Caluclating peak force (PPF) is fairly simple. We will also calclate the time when it occurs (PFt), which we will need for the RFD calculation later. This is also fairly simple in that we are asking for the time which the resultant force is equal to the varialbe we just assigned to PPF or peak force. The only trick here is the addition of the [1]-1 at the end. The reason that is there is so that we pull the first occurence of this event. If the same exact value appears more than once, your code will throw an error. This does happen sometimes with consecutive values when you sample at high rates. Adding this in will prevent those issues.</p>
+<pre class="r"><code>PF &lt;- max(F1$DLRes1, na.rm = TRUE)
+print(PF)</code></pre>
+<pre><code>## [1] 894.4183</code></pre>
+<pre class="r"><code>PFt &lt;- F1$Time1[which(F1$DLRes1==PF)[1]-1] </code></pre>
+<p>Now let’s work on RFD. This will be calculated as the slope of the line from the initial force produced to the peak force. So this will be rise over run (change in force/change in time). Meaning we will need to calculate those first. We will start with the initial force produced (FInit) and the time at which it is produced (FInitT). Here we are simply calling for the first value and then for the time which that force value occurs.</p>
+<pre class="r"><code>FInit&lt;- F1$DLRes1[1]
+FInitT &lt;- F1$Time1[which(F1$DLRes1==FInit)]</code></pre>
+<p>We already have the time which PF occurs, so now we just need to calculate the chage in Force and the change in time and divide them. Again, we’ll print RFD to check it.</p>
+<pre class="r"><code>changeT &lt;- PFt + FInitT
+changeF &lt;- PF - FInit
+RFD &lt;- changeF/changeT
+print(RFD)</code></pre>
+<pre><code>## [1] 1463.233</code></pre>
+<p>To calculate impulse, we will need the minimum values (force and time) which occur at the end of the drive leg f/t curve when the weight shift occurs. We need this as an end point marker to get the area under the curce (AUC). The time when the minimum force occurs will need to have the [1]-1 at the end similar to the PFt variable.</p>
+<pre class="r"><code>Fmin &lt;- min(F1$DLRes1,na.rm = TRUE)
+Fmint &lt;- F1$Time1[which(F1$DLRes1==Fmin)[1]-1]</code></pre>
+<p>We can caluclate the AUC with the help of the MESS package. In order to calculate it, we will need several arguments including: what are the x and y values, from what point to what point do we want to calculate the area for and the type. Force-time curves are almost always set up with time on the x axis and force on the y axis, so that gives us the information for the first part. The from and to are going to be the initial time and minimum time already assigned. We will use linear for the type.</p>
+<pre class="r"><code>library(MESS)</code></pre>
+<pre><code>## Warning: package &#39;MESS&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## Loading required package: geepack</code></pre>
+<pre><code>## Loading required package: geeM</code></pre>
+<pre><code>## Warning: package &#39;geeM&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Warning: package &#39;Matrix&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>Impulse &lt;- auc(F1$Time1, F1$DLRes1, from = FInitT, to = Fmint, type = c(&quot;linear&quot;))
+print(Impulse)</code></pre>
+<pre><code>## [1] 555.1382</code></pre>
+<p>That’s pretty much it for the drive leg. This can be repeated for additional trials, but you’ll need to change the assignments slightly. I do this with numbers at the end, and sometimes letters (b to indicate stride leg).</p>
+<pre class="r"><code>PF2 &lt;- max(F1$DLRes2, na.rm = TRUE)
+PFt2 &lt;- F1$Time2[which(F1$DLRes2==PF2)[1]-1]                     
+FInit2&lt;- F1$DLRes2[1]
+FInitT2 &lt;- F1$Time2[which(F1$DLRes2==FInit2)]
+Fmin2 &lt;- min(F1$DLRes2,na.rm = TRUE)
+Fmint2 &lt;- F1$Time2[which(F1$DLRes2==Fmin2)[1]-1]
+changeT2 &lt;- PFt2 + FInitT2
+changeF2 &lt;- PF2 - FInit2
+RFD2 &lt;- changeF2/changeT2
+Impulse2 &lt;- auc(F1$Time2, F1$DLRes2, from = FInitT2, to = Fmint2, type = c(&quot;linear&quot;))
+
+PF3 &lt;- max(F1$DLRes3, na.rm = TRUE)
+PFt3 &lt;- F1$Time3[which(F1$DLRes3==PF3)[1]-1]                     
+FInit3&lt;- F1$DLRes3[1]
+FInitT3 &lt;- F1$Time3[which(F1$DLRes3==FInit3)]
+Fmin3 &lt;- min(F1$DLRes3,na.rm = TRUE)
+Fmint3 &lt;- F1$Time3[which(F1$DLRes3==Fmin3)[1]-1]
+changeT3 &lt;- PFt3 + FInitT3
+changeF3 &lt;- PF3 - FInit3
+RFD3 &lt;- changeF3/changeT3
+Impulse3 &lt;- auc(F1$Time3, F1$DLRes3, from = FInitT3, to = Fmint3, type = c(&quot;linear&quot;))</code></pre>
+<p>The stride leg is almost identical in analysis, but the impulse arguments will need to be changed. Specifically, we want to get the area from the initial force produced to the final time since these trials have already been cleaned. That is acheived by the max(F1$Timeb) command.</p>
+<pre class="r"><code>PF1b &lt;- max(F1$SLRes1, na.rm = TRUE)
+PFt1b &lt;- F1$Time1b[which(F1$SLRes1==PF1b)[1]-1]                     
+FInit1b&lt;- F1$SLRes1[1]
+FInitT1b &lt;- F1$Time1b[which(F1$SLRes1==FInit1b)]
+Fmin1b &lt;- min(F1$SLRes1,na.rm = TRUE)
+Fmint1b &lt;- F1$Time1b[which(F1$SLRes1==Fmin1b)]
+changeT1b &lt;- PFt1b + FInitT1b
+changeF1b &lt;- PF1b - FInit1b
+RFD1b &lt;- changeF1b/changeT1b
+Impulse1b &lt;- auc(F1$Time1b, F1$SLRes1, from = FInitT1b, to = max(F1$Time1b, na.rm = TRUE), type = c(&quot;linear&quot;))
+
+PF2b &lt;- max(F1$SLRes2, na.rm = TRUE)
+PFt2b &lt;- F1$Time2b[which(F1$SLRes2==PF2b)[1]-1]                     
+FInit2b&lt;- F1$SLRes2[1]
+FInitT2b &lt;- F1$Time2b[which(F1$SLRes2==FInit2b)]
+Fmin2b &lt;- min(F1$SLRes2,na.rm = TRUE)
+Fmint2b &lt;- F1$Time2b[which(F1$SLRes2==Fmin2b)]
+changeT2b &lt;- PFt2b + FInitT2b
+changeF2b &lt;- PF2b - FInit2b
+RFD2b &lt;- changeF2b/changeT2b
+Impulse2b &lt;- auc(F1$Time2b, F1$SLRes2, from = FInitT2b, to = max(F1$Time2b, na.rm = TRUE), type = c(&quot;linear&quot;))
+
+PF3b &lt;- max(F1$SLRes3, na.rm = TRUE)
+PFt3b &lt;- F1$Time3b[which(F1$SLRes3==PF3b)[1]-1]                     
+FInit3b&lt;- F1$SLRes3[1]
+FInitT3b &lt;- F1$Time3b[which(F1$SLRes3==FInit3b)]
+Fmin3b &lt;- min(F1$SLRes3,na.rm = TRUE)
+Fmint3b &lt;- F1$Time3b[which(F1$SLRes3==Fmin3b)]
+changeT3b &lt;- PFt3b + FInitT3b
+changeF3b &lt;- PF3b - FInit3b
+RFD3b &lt;- changeF3b/changeT3b
+Impulse3b &lt;- auc(F1$Time3b, F1$SLRes3, from = FInitT3b, to = max(F1$Time3b, na.rm = TRUE), type = c(&quot;linear&quot;))</code></pre>
+</div>
+<div id="getting-the-means-combining-them-into-a-data-frame" class="section level2">
+<h2>Getting the means &amp; combining them into a data frame</h2>
+<p>Now, we need to get the average of the 3 trials for each variable. I do that when I put it into a data frame for each leg.</p>
+<pre class="r"><code>Player1DL&lt;- data.frame(DL.PF = (PF+PF2+PF3)/3,
+                      DL.RFD = (RFD+RFD2+RFD3)/3,
+                      DL.Impulse = (Impulse+Impulse2+Impulse3)/3)
+
+Player1SL&lt;- data.frame(SL.PF = (PF1b+PF2b+PF3b)/3,
+                       SL.RFD = (RFD1b+RFD2b+RFD3b)/3,
+                       SL.Impulse = (Impulse1b+Impulse2b+Impulse3b)/3)
+
+print(Player1DL)</code></pre>
+<pre><code>##      DL.PF   DL.RFD DL.Impulse
+## 1 895.8249 1371.313   569.6043</code></pre>
+<p>Now we can combine these into one data frame.</p>
+<pre class="r"><code>Player1&lt;-cbind(Player1DL, Player1SL)
+print(Player1)</code></pre>
+<pre><code>##      DL.PF   DL.RFD DL.Impulse    SL.PF   SL.RFD SL.Impulse
+## 1 895.8249 1371.313   569.6043 1204.453 3972.014   326.8253</code></pre>
+</div>
+<div id="combining-individual-players-data-together-and-creating-a-summary-file" class="section level2">
+<h2>Combining individual players’ data together and creating a summary file</h2>
+<p>That’s pretty much it. It’s now just wash, rinse, and repeat for additional players. Then if want to combine all their data into one data frame, you can do so with the row bind command and separate each player name by a comma. I only have one here, because that’s all I’m using in this example.</p>
+<pre class="r"><code>Data &lt;- data.frame(rbind(Player1))
+##this should be the same as above since we didn&#39;t add any additional players.
+print(Data)</code></pre>
+<pre><code>##      DL.PF   DL.RFD DL.Impulse    SL.PF   SL.RFD SL.Impulse
+## 1 895.8249 1371.313   569.6043 1204.453 3972.014   326.8253</code></pre>
+<p>You can then write your data to a csv file if you wish. It will save in your working directory or wherever you wish if you indicate the file path.</p>
+<pre class="r"><code>write.csv(Data,file = &#39;BatswingGRFData.csv&#39;)</code></pre>
+</div>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/bat-swing-ground-reaction-forces-part-1/" data-toggle="tooltip" data-placement="top" title="Bat Swing Ground Reaction Forces Part 1">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/post/making-sense-of-student-evaluations-a-data-science-text-mining-approach/" data-toggle="tooltip" data-placement="top" title="Making sense of student evaluations: A data science/text mining approach">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/baseball" title="baseball">
+                            baseball
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/grf" title="grf">
+                            grf
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/r" title="r">
+                            r
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:chris.bailey2@unt.edu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/CBaileyPhD?lang=en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/cbaileyphd/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Chris Bailey, PhD, CSCS*D, RSCC 2019
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

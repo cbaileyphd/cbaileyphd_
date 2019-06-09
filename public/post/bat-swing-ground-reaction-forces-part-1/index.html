@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Chris Bailey, PhD, CSCS*D, RSCC">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="//img/header.png">
+    <meta property="twitter:image" content="//img/header.png" />
+    
+
+    
+    <meta name="title" content="Bat Swing Ground Reaction Forces Part 1" />
+    <meta property="og:title" content="Bat Swing Ground Reaction Forces Part 1" />
+    <meta property="twitter:title" content="Bat Swing Ground Reaction Forces Part 1" />
+    
+
+    
+    <meta name="description" content="A place for sport science, education, &amp; strength and conditioning">
+    <meta property="og:description" content="A place for sport science, education, &amp; strength and conditioning" />
+    <meta property="twitter:description" content="A place for sport science, education, &amp; strength and conditioning" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="sport sciecne, data science, education, , strength and conditioning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Bat Swing Ground Reaction Forces Part 1-Chris Bailey, PhD Blog</title>
+
+    <link rel="canonical" href="/post/bat-swing-ground-reaction-forces-part-1/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Chris Bailey, PhD, CSCS*D, RSCC</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/athlete-monitoring">athlete-monitoring</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/baseball">baseball</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/data-science">data-science</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/education">education</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/header.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/r" title="R">
+                            R
+                        </a>
+                        
+                        <a class="tag" href="/tags/baseball" title="Baseball">
+                            Baseball
+                        </a>
+                        
+                        <a class="tag" href="/tags/grf" title="GRF">
+                            GRF
+                        </a>
+                        
+                    </div>
+                    <h1>Bat Swing Ground Reaction Forces Part 1</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+			Posted by 
+			
+		            Chris Bailey, PhD, CSCS*D, RSCC
+			 
+			on 
+			Wednesday, November 28, 2018
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#similarities-in-force-time-curves">Similarities in Force-Time Curves</a></li>
+<li><a href="#collecting-the-data">Collecting the Data</a>
+<ul>
+<li><a href="#bat-swing-force-time-curve">Bat Swing Force-Time Curve</a>
+<ul>
+<li><a href="#grf-analysis-in-r">GRF Analysis in R</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#reliability">Reliability</a></li>
+<li><a href="#references">References</a></li>
+</ul></li>
+</ul>
+</nav>
+                
+                
+
+<h2 id="similarities-in-force-time-curves">Similarities in Force-Time Curves</h2>
+
+<p>Monitoring of jumping ground reaction force (GRF), especially in the vertical direction (vGRF) is becoming more common these days with more affordable force plate options and software. If you are willing to learn and put in the effort, you can design your own force-time curve analysis programs in R or python and avoid the budget hit. Matt Sams created an <a href="https://www.researchgate.net/project/Open-source-vertical-jump-analysis-script">open source vertical jump analysis project</a> for this purpose, coded in R with a shiny app.</p>
+
+<p>Jump monitoring is quite popular due to its quick and easy of collection that doesn&rsquo;t cause excessive fatigue, but also due to its relationship with other performance variables (<a href="https://www.ncbi.nlm.nih.gov/pubmed/15320676">Carlock, 2004</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/19826298">Kale, 2009</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/21993034">Shalfawi, 2011</a>, <a href="https://www.researchgate.net/publication/8153735_The_Importance_of_Isometric_Maximum_Strength_and_Peak_Rate-of-Force_Development_in_Sprint_Cycling">Stone, 2004</a>). These relationships can be evaluated by Pearson&rsquo;s r values and seen in scatter plots, but the similarities can also be seen by visual inspection of the force-time curve characteristics. Check out the images below of squat jump and snatch (from the knee) force-time curves plotted in R from a single Bertec 6040 force plate collecting at 1000 Hz.</p>
+
+<p><img src="SJ.png" alt="" />
+<img src="Snatch.png" alt="" /></p>
+
+<p>If the snatch f/t curve wasn&rsquo;t labeled, you might confuse if for a jump. To be clear these are not normalized for time, they just look that similar. If snatch was coming from the floor, it would look very similar to a CMJ with the countermovement added. It&rsquo;s no surprise that we can find lots of statistical and practical relationships between weightlifting and jumping performance.</p>
+
+<h2 id="collecting-the-data">Collecting the Data</h2>
+
+<p>Getting on to the topic at hand and title of this post, while at LaGrange College, we collected jumps on a weekly basis for nearly 2 years with our baseball team. I was collecting these because baseball is a &ldquo;strength/power&rdquo; sport and vertical jumping ability is usually a good marker of power, but specific performance decreases may also be indicative of accumulated fatigue, giving it added utility for athlete monitoring. While considering the relationship between hitting performance and jumping ability, I realized that I didn&rsquo;t really know what a bat swing f/t curve looked like. When I looked at studies on hitting vGRF, they don&rsquo;t publish images of the f/t curves. So, I decided to make one. Actually, I planned a larger study along with it looking at asymmetry and ball exit velocity, but this is how it started.</p>
+
+<p>At LaGrange we had a few force plates, and the portable biaxial PASCOs would worked best for this set up (<a href="https://www.pasco.com/prodCatalog/PS/PS-2142_pasport-2-axis-force-platform/index.cfm">model 2142</a>). They sample up to 1000 Hz, you can move them around and building a platform around them like a batter&rsquo;s box was fairly easy (an image and a gif of the setup below). In order to control for the variation of reacting to pitch location, they hit off of a tee and self-selected its height. The back leg (drive leg) force plate was stationary, but the platform was made so that the stride leg force plate could be adjusted for stride length and location (changes in x,y).</p>
+
+<p><img src="Picture1.png" alt="" />
+<img src="BSgrf.gif" alt="" /></p>
+
+<h3 id="bat-swing-force-time-curve">Bat Swing Force-Time Curve</h3>
+
+<p>Without further ado, the resulting force-time curve from the two force plates is below. On its own, the stride leg force-time curve looks similar to a jump, but the force magnitudes are lower. Keep in mind that the magnitude should be close to half the value, since we are dividing it over 2 force plates. That being said, at some point a weight shift will occur (<a href="https://www.amazon.com/High-tech-hitting-Science-vs-tradition/dp/0314021663">DeRenne, 1993</a>, <a href="https://www.amazon.com/Louisville-Slugger%C2%AE-Complete-Hitting-Faults/dp/0809298023">Gola &amp; Monteleone, 2001</a>, <a href="https://www.ncbi.nlm.nih.gov/pubmed/22303780">Fortenbaugh et al., 2011</a>, <a href="https://www.amazon.com/Don-Mattinglys-Hitting-Simple-Batting/dp/0312366205">Mattingly &amp; Rosenthal, 2007</a>), which will result in similar force production values on a single force plate. With the weight shift in mind, it makes more sense to relate the drive leg to the propulsive phase of a jump and the stride leg braking phase to the landing phase of a jump.</p>
+
+<p><img src="ftcurve.png" alt="" /></p>
+
+<h4 id="grf-analysis-in-r">GRF Analysis in R</h4>
+
+<p>If you are interested in how the GRF data were analyzed, you can find my code in <a href="Bat swing GRF analysis code">part 2 of this post</a>. The data were collected with PASCO&rsquo;s Capstone software and files were exported as csv. Analysis took place in R to derive peak force, rate of force development (RFD), and impulse.</p>
+
+<h2 id="reliability">Reliability</h2>
+
+<p>Much like any other performance data that we monitor, reliability should be evaluated.  Looking at the relative reliability in the form of the intraclass correlation <a href="with 95% confidence intervals">3,1</a>, it&rsquo;s not too bad. Depending on the reference you use, you might say all are acceptable values. But there is a noticeable trend that the stride leg values are less reliable than the drive leg values. Going back to an earlier comment on the similarities between the stride leg braking phase and the landing phase of a jump, this reliability finding is also consistent. Well, jump landings may be less reliable than the stride leg braking phase, but the trend is the same.</p>
+
+<pre><code class="language-r">knitr::kable(ICC)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">Var</th>
+<th align="left">ICC</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">DL PF</td>
+<td align="left">0.952 [0.888 - 0.383]</td>
+</tr>
+
+<tr>
+<td align="left">SL PF</td>
+<td align="left">0.725 [0.474 - 0.891]</td>
+</tr>
+
+<tr>
+<td align="left">DL RFD</td>
+<td align="left">0.685 [0.399 - 0.874]</td>
+</tr>
+
+<tr>
+<td align="left">SL RFD</td>
+<td align="left">0.773 [0.550 - 0.912]</td>
+</tr>
+
+<tr>
+<td align="left">DL Imp</td>
+<td align="left">0.904 [0.787 - 0.965]</td>
+</tr>
+
+<tr>
+<td align="left">SL Imp</td>
+<td align="left">0.756 [0.522 - 0.904]</td>
+</tr>
+</tbody>
+</table>
+
+<p>Looking at our absolute measures of reliability (coefficient of variation), we see that RFD is not so reliable. Again, this is similar to jump data.</p>
+
+<pre><code class="language-r">knitr::kable(CV)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">Var</th>
+<th align="left">CV</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">DL PF</td>
+<td align="left">11.81%</td>
+</tr>
+
+<tr>
+<td align="left">SL PF</td>
+<td align="left">12.6%</td>
+</tr>
+
+<tr>
+<td align="left">DL RFD</td>
+<td align="left">37.77%</td>
+</tr>
+
+<tr>
+<td align="left">SL RFD</td>
+<td align="left">44.88%</td>
+</tr>
+
+<tr>
+<td align="left">DL Imp</td>
+<td align="left">12.36%</td>
+</tr>
+
+<tr>
+<td align="left">SL Imp</td>
+<td align="left">14.67%</td>
+</tr>
+</tbody>
+</table>
+
+<p>Based on these findings, it may be worthwhile to collect data on peak force and impulse from a monitoring standpoint. But we should probably stay away from RFD and question the data we have from the the stride leg. While the stride leg reliability wasn&rsquo;t terrible here, it was noticeably worse than the drive leg. Much like jump landings, poor reliability could kill our data or lead us to making an incorrect decision. We should regularly evaluate reliability at a minimum. Checking once and assuming it stays the same may not be acceptable in this case.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/15320676">Carlock, J.M., Smith, S.L., Hartman, M.J., Morris, R.T., Ciroslan, D.A., Pierce, K.C.,&hellip;(2004). The relationship between vertical jump power estimates and weightlifting ability: a field-test approach. Journal of Strength and Conditioning Research, 18(3), 534-539.</a></li>
+<li><a href="https://www.amazon.com/High-tech-hitting-Science-vs-tradition/dp/0314021663">DeRenne, C. (1993). High-tech hitting: Science vs. tradition. West: St. Paul.</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/22303780">Fortenbaugh, D., Flesig, G., Onar-Thomas, A., Asfour, S. (2011). The effect of pitch type on ground reaction forces in the baseball swing. Sports Biomech, 10(4):270-279.</a></li>
+<li><a href="https://www.amazon.com/Louisville-Slugger%C2%AE-Complete-Hitting-Faults/dp/0809298023">Gola, M., &amp; Monteleone, J. (2001). The complete book of hitting faults and fixes. New York: McGraw-Hill</a>.</li>
+<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/19826298">Kale, M., Asci, A., Bayrak, C., &amp; Acikada, C. (2009). Relationships among jumping performances and sprint parameters during maximum speed phase in sprinters. Journal of Strength and Conditioning Research, 23(8), 2272-2279. doi: 10.1519/JSC.0b013e3181b3e182</a></li>
+<li><a href="https://www.amazon.com/Don-Mattinglys-Hitting-Simple-Batting/dp/0312366205">Mattingly, D., &amp; Rosenthal, J. (2007). Don Mattingly’s hitting is simple: The ABCs of batting .300. Griffin, NY: St Martin’s.</a></li>
+<li><a href="https://www.ncbi.nlm.nih.gov/pubmed/21993034">Shalfawi, S. A., Sabbah, A., Kailani, G., Tonnessen, E., &amp; Enoksen, E. (2011). The relationship between running speed and measures of vertical jump in professional basketball players: A field-test approach. Journal of Strength and Conditioning Research, 25(11), 3088-3092.</a></li>
+<li><a href="https://www.researchgate.net/publication/8153735_The_Importance_of_Isometric_Maximum_Strength_and_Peak_Rate-of-Force_Development_in_Sprint_Cycling">Stone, M.H., Sands, W.A., Carlock, J., Callan, S., Dickie, D., &hellip; (2004). The importance of isometric maximum strength and peak rate of force development in sprint cycling. Journal of Strength and Conditioning Research, 18(4), 878-874.</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/post/bat-swing-grf-part-2-analysis-in-r/" data-toggle="tooltip" data-placement="top" title="Bat Swing GRF Part 2: Analysis in R">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/baseball" title="baseball">
+                            baseball
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/grf" title="grf">
+                            grf
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/r" title="r">
+                            r
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:chris.bailey2@unt.edu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/CBaileyPhD?lang=en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/cbaileyphd/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Chris Bailey, PhD, CSCS*D, RSCC 2019
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

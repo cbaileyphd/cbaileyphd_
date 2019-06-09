@@ -1,0 +1,127 @@
+<script src="2018-12-20-making-sense-of-student-evaluations-a-data-science-text-mining-approach_files/htmlwidgets/htmlwidgets.js"></script>
+<link href="2018-12-20-making-sense-of-student-evaluations-a-data-science-text-mining-approach_files/wordcloud2/wordcloud.css" rel="stylesheet" />
+<script src="2018-12-20-making-sense-of-student-evaluations-a-data-science-text-mining-approach_files/wordcloud2/wordcloud2-all.js"></script>
+<script src="2018-12-20-making-sense-of-student-evaluations-a-data-science-text-mining-approach_files/wordcloud2/hover.js"></script>
+<script src="2018-12-20-making-sense-of-student-evaluations-a-data-science-text-mining-approach_files/wordcloud2-binding/wordcloud2.js"></script>
+
+
+<p>After every semester I find myself in the same situation, reading through student evaluations and comments trying to find some value in them. The quantitative section may be seemingly straightforward, with higher values being better, but they are often compared to and normalized to other courses that are completely different from yours. But at least they are objective. I usually struggle the most with the comments section. They always seem to be equal parts encouraging, frustrating, and contradicting. Encouraging comments usually provide some affirmation of my teaching methods, frustrating ones usually provide the opposite or say that my course is boring, and then I usually get a few comments that make no sense or contradict themselves. An example of each from this semester is below.</p>
+<div id="encouraging-examples" class="section level5">
+<h5>Encouraging examples:</h5>
+<ul>
+<li>“I enjoyed the lab work. This helped explain the aspects taught in the class and allowed students to see and feel the results themselves.”
+<ul>
+<li>I have a very similar statement in my syllabus as to why we do in class activities. I try to focus on applied learning and we have a lot of in class activities.</li>
+</ul></li>
+<li>“he made you feel like you’re the one doing the lab tests even if it was just in the classroom. He was very interactive towards the students”</li>
+</ul>
+</div>
+<div id="discouraging-example" class="section level5">
+<h5>Discouraging example:</h5>
+<ul>
+<li>“very little class interaction during lecture”
+<ul>
+<li>I try to have an in class activity during every lecture that reinforces what we are discussing and hopefully encourages interaction. I walk around from group to group discussing the assignment and hopefully get a feel for how students are grasping the concepts. So this comment is frustrating.</li>
+</ul></li>
+</ul>
+</div>
+<div id="contradicting-example" class="section level5">
+<h5>Contradicting example:</h5>
+<ul>
+<li>“This class was much more difficult than anticipated. I was intending for it to be my”leisure class&quot; as my course load this semester is rather intense, but that was not the case.&quot;
+<ul>
+<li>This was for a senior level course called “Quantitative Analysis.”</li>
+</ul></li>
+</ul>
+</div>
+<div id="the-problem" class="section level2">
+<h2>The problem</h2>
+<p>It is very easy for me to only consider specific comments and forget all the other ones. This could be due to confirmation bias after reading a good comment or my frustration over a bad comment. Either way, it is difficult to get an overall course summary on what I did well and what needs to change from open ended statements.</p>
+</div>
+<div id="a-solution-data-science" class="section level2">
+<h2>A solution: Data Science</h2>
+<p>I recently learned about text mining and sentiment analysis in R and I’ve been looking for a real world opportunity to use it. Actually that was only part of my motivation for this. After seeing the word “boring” multiple times in my Quantitative Analysis course comments, I thought it would be funny if I made a wordcloud and that was one of the biggest words (meaning it was one of the most commonly appearing words). I thought I could frame the results and use it as motivation for future course development.</p>
+<p>This is actually quite easy to do in R. Much like analyzing other data in R, you need to be able to read it in a format that is tab or comma delimited. I did this by copying and pasting all my comments into a text editor (Sublime Text) and saving it as a .txt file. After that everything was completed in R. I will share the results here, with my code imbedded in case you want to do this for your own courses or for some other application.</p>
+<div class="figure">
+<img src="wc1.png" />
+
+</div>
+<p>I’ll show the finished product first. As you can see “boring” wasn’t one of the most used word. Many of the words are consistent with my teaching style. I try to focus on applied learning with labs and in class activities, so those words appear a lot. Other words appear that likely should have been filtered out since they are part of the course name. In this course, Exercise Testing and Prescription, the title likely results in the words “exercise” and “testing” usage frequency being inflated. My name probably should have been filtered out also.</p>
+</div>
+<div id="how-the-sauce-is-made" class="section level2">
+<h2>How the sauce is made</h2>
+<p>Let’s take a look at how this is done and we can dive a little deeper as well. For this project we will need the tm and wordcloud2 packages.</p>
+<pre class="r"><code>library(tm)</code></pre>
+<pre><code>## Loading required package: NLP</code></pre>
+<pre><code>## Warning: package &#39;NLP&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>library(wordcloud2)</code></pre>
+<p>Now we need to read our data in.</p>
+<pre class="r"><code>EXRX_cloud&lt;-readLines(&quot;KINE4320.txt&quot;)</code></pre>
+<p>Now this needs to be converted to a corpus so that it can be manipulated.</p>
+<pre class="r"><code>EXRX_corpus&lt;-Corpus(VectorSource(EXRX_cloud))</code></pre>
+<p>At this stage it would be a good idea to inspect() your corpus to make sure everything shows up correctly, but I am not going to do that here as it would be a lot of lines.</p>
+<p>Currently, my corpus is set up is with line numbers, lots of punctuation (sometimes not), capitalized letters, and some other things that won’t work well for a wordcloud. So we will clean that up in the next few steps with the map function in the tm package.</p>
+<pre class="r"><code>##convert everythhing to lowercase
+EXRX_clean_corpus &lt;- tm_map(EXRX_corpus,tolower)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(EXRX_corpus, tolower): transformation drops
+## documents</code></pre>
+<pre class="r"><code>##remove the comment numbers. You should also notice that I am now using EXRX_clean_corpus inside of the map function and will be from now on.
+EXRX_clean_corpus&lt;- tm_map(EXRX_clean_corpus, removeNumbers)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(EXRX_clean_corpus, removeNumbers):
+## transformation drops documents</code></pre>
+<pre class="r"><code>##remove the punctuation
+EXRX_clean_corpus&lt;- tm_map(EXRX_clean_corpus, removePunctuation)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(EXRX_clean_corpus, removePunctuation):
+## transformation drops documents</code></pre>
+<pre class="r"><code>##Get rid of extra spaces
+EXRX_clean_corpus&lt;- tm_map(EXRX_clean_corpus, stripWhitespace)</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(EXRX_clean_corpus, stripWhitespace):
+## transformation drops documents</code></pre>
+<pre class="r"><code>##remove stop words (the, that, etc.)
+EXRX_clean_corpus&lt;- tm_map(EXRX_clean_corpus, removeWords, stopwords())</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(EXRX_clean_corpus, removeWords,
+## stopwords()): transformation drops documents</code></pre>
+<pre class="r"><code>##I am commenting out the next line of code, because I do not want to stem the document, but that is a common practice when creating a wordcloud. What stemming will do is shortening words to their roots and then combining all of those. From experience doing this, it doesn&#39;t work well in this scenario. For example &#39;statistics&#39; becomes &#39;statist&#39; and those are very different things. So if you want to do that, here&#39;s how you would.
+##EXRX_clean_corpus&lt;- tm_map(EXRX_clean_corpus, stemDocument)
+
+#Lastly, there are some words that aren&#39;t necessarily stop words, but I don&#39;t want them being counted. So I am factoring those out here.
+EXRX_clean_corpus&lt;-tm_map(EXRX_clean_corpus, removeWords, c(&quot;class&quot;, &quot;yes&quot;))</code></pre>
+<pre><code>## Warning in tm_map.SimpleCorpus(EXRX_clean_corpus, removeWords, c(&quot;class&quot;, :
+## transformation drops documents</code></pre>
+<p>This is another point were you should use the tm inspect function to check your work. Again, I’m not going to do it here because it will take up a lot of space. But you should inspect(EXRX_clean_corpus).</p>
+<p>Now we can create the wordcloud. I am using the wordcloud2 package that will create this as html, but the wordcloud package will also work.</p>
+<pre class="r"><code>##turn the corpus we&#39;ve been working with into a term document matrix
+tdm &lt;- TermDocumentMatrix(EXRX_clean_corpus)
+l &lt;- as.matrix(tdm)
+##sort it and make it a data frame
+x &lt;- sort(rowSums(l),decreasing=TRUE)
+p &lt;- data.frame(word = names(x),freq=x)
+#check it out
+head(p)</code></pre>
+<pre><code>##              word freq
+## labs         labs   14
+## concepts concepts   11
+## students students   11
+## nothing   nothing   11
+## testing   testing   10
+## learning learning    9</code></pre>
+<p>Now we can see the frequency of words used.</p>
+<p>Let’s make the actual wordcloud. It’s simple from this point. Since it is .html instead of a .png or .jpg, you can hover over each word to get the frequency of use.</p>
+<pre class="r"><code>wordcloud2(p)</code></pre>
+<p><div id="htmlwidget-38d68a89d09535ffe5a0" style="width:672px;height:480px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38d68a89d09535ffe5a0">{"x":{"word":["labs","concepts","students","nothing","testing","learning","lectures","activities","assignments","none","information","think","lot","hands","really","powerpoints","help","many","apply","just","new","feel","lab","exercise","examples","material","helpful","review","detracted","helped","work","learned","methods","questions","exam","take","great","test","suggestions","understand","allowed","enjoyed","already","thinking","ways","interactive","like","made","tests","way","future","real","learn","bailey","good","online","given","notes","lecture","able","semester","group","stay","classes","book","exams","answers","maybe","least","practice","ideas","field","going","research","sure","aspects","taught","content","seen","things","introduced","different","informative","equipment","one","involved","actually","course","interesting","intellectually","provided","stimulating","much","practical","setting","world","inclass","beneficial","explained","well","complete","gave","based","ability","instructor","make","better","required","icas","fast","hard","presentation","along","speech","simply","available","day","slides","seemed","necessarily","grasp","sometimes","loved","wouldve","slower","suggest","topics","overall","however","info","ask","teach","can","half","exact","may","time","knowledge","specific","keep","homework","facts","explain","results","see","actions","basic","behind","broke","eyes","opened","scenes","action","clinic","gym","ive","say","stretched","wouldnt","programs","created","scenarios","common","mostly","particularly","sense","utilization","classroom","even","towards","youre","physiology","got","leave","tested","use","techniques","important","insight","various","especially","details","explanations","body","never","stretch","assist","career","others","brought","kinesiology","previous","life","used","related","excited","love","matter","missed","personal","since","thats","explaining","using","modules","blanks","canvas","creates","incentivizes","present","uploads","printing","versus","ica","contributed","independence","actual","calculations","chose","sports","whether","devices","procedure","throughout","diagnostic","aided","materiel","subjects","tough","understandable","person","visual","aspect","attending","fill","discussed","solve","engaging","fun","worksheets","blazed","entire","talked","teacher","dry","drystyle","energy","extra","interested","put","reason","similarly","follow","mixed","back","looking","usefull","vauge","distracting","didnt","due","miss","top","attendance","credit","sort","wish","powerpoint","best","debatable","equally","method","somewhat","times","alternatives","answer","managed","pictures","purchase","reading","confusing","wording","difficult","focused","gone","pertain","discussing","supposed","topic","working","assignment","giving","graded","prepared","providing","analyze","example","monotonous","enthusiasm","hurt","little","wouldn’t","clients","every","everything","trainers","thursday","adding","also","break","fiveminute","somewhere","though","allow","continuing","decompress","focus","higher","level","maintain","part","second","absolutely","classpowerpoints","covered","choose","differnt","extremly","professor","relatable","understanding","smart","instruction","supplemental","harder","job","presented","prof","teaching","everybody","needed","goes","instances","something","excel","expecting","show","thorough","wasnt","constructed","improving","advance","scheduled","week","majority","observe","realistic","cool","definitely","generally","get","thought","’d","careers","carry","hybrid","come","error","less","matching","room","situations","specificity","stem","theres","reasoning","requirements","scenario","handson","learners","getting","led","unclear","wrong","afternoon","courses","extend","interval","morning","till","usually","leads","skipping","application","concise","still","reword","instead","long","stuff","aside","find","ica’s","task","amount","aware","despite","improvement","lesser","mentioned","overwhelming","prepare","provide","retaining","section","sheet","upcoming","view","weighed","listing","wonderful","engagement","grades","improve","involve"],"freq":[14,11,11,11,10,9,9,8,8,8,7,7,6,6,6,6,6,5,5,5,5,5,5,5,5,5,5,5,5,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"fontFamily":"Segoe UI","fontWeight":"bold","color":"random-dark","minSize":0,"weightFactor":12.8571428571429,"backgroundColor":"white","gridSize":0,"minRotation":-0.785398163397448,"maxRotation":0.785398163397448,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script> This looks pretty cool and it is a good way to visualize key terms used frequently. The size of the words are representative of the amount of times they were used. This should sound familiar to a bar plot from a visualization standpoint. A bar plot may not be as visually appealing, and it won’t be able to display near as many words, but it’s arguably easier to interpret.</p>
+<pre class="r"><code>barplot(p[1:10,]$freq, las = 2, names.arg = p[1:10,]$word,
+        col =&quot;springgreen&quot;, main =&quot;Most frequent words&quot;,
+        ylab = &quot;Word frequencies&quot;)</code></pre>
+<p><img src="2018-12-20-making-sense-of-student-evaluations-a-data-science-text-mining-approach_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Most of this makes since. I focus a lot on applied learning in this class so they do a lot of “in class actvities” and labs. I probably should have filtered out the words “nothing” and “detracted” since they are responding to a question about what detracted from their learning at one point. Many of those answers were “nothing.”</p>
+<p>The last bit of exploratory analysis that I will do is correlation. I will specifically look for the words that are most correlated with these words that appear the most and I will set a limit of 0.3 (low end of moderate r value), so that I only see words that correlate higher than that. I will start with the word “labs,” since it is the most commonly used word.</p>
+<pre class="r"><code>findAssocs(tdm, terms = &quot;labs&quot;, corlimit = 0.3)</code></pre>
+<pre><code>## $labs
+##    hands  excited     love   matter   missed personal    since    thats 
+##     0.60     0.50     0.50     0.50     0.50     0.50     0.50     0.50 
+##      one 
+##     0.34</code></pre>
+<p>Looking at the results, this mostly makes sense. I’m assuming “hands” was part of “hands on” before the corpus was cleaned. The words “excited” and “love” being associated with “labs” is probably a good thing. But the word “missed” being associated at the same value (r = 0.50) means that at least a few people made comments about missing labs.</p>
+<p>For me, this is a much more objective way to interpret my evaluations with the added benefit of removing any potential bias I may have when I just read through the comments. This only really works with large classes and if you have a high response rate on your evaluations. If you have a small class size or a small number of responses, this really isn’t necessary.</p>
+</div>

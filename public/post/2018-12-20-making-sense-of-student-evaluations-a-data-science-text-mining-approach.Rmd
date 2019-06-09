@@ -1,0 +1,119 @@
+---
+title: 'Making sense of student evaluations: A data science/text mining approach'
+author: Chris Bailey
+date: '2018-12-20'
+slug: making-sense-of-student-evaluations-a-data-science-text-mining-approach
+categories: 
+  - Education
+  - Data Science
+tags:
+  - R
+  - Education
+  - Data Science
+  - Text Mining
+subtitle: ''
+description: ''
+image: ''
+---
+After every semester I find myself in the same situation, reading through student evaluations and comments trying to find some value in them. The quantitative section may be seemingly straightforward, with higher values being better, but they are often compared to and normalized to other courses that are completely different from yours. But at least they are objective. I usually struggle the most with the comments section. They always seem to be equal parts encouraging, frustrating, and contradicting. Encouraging comments usually provide some affirmation of my teaching methods, frustrating ones usually provide the opposite or say that my course is boring, and then I usually get a few comments that make no sense or contradict themselves. An example of each from this semester is below.
+
+#####Encouraging examples:
+* "I enjoyed the lab work. This helped explain the aspects taught in the class and allowed students to see and feel the results themselves."
+    - I have a very similar statement in my syllabus as to why we do in class activities. I try to focus on applied learning and we have a lot of in class activities.
+* "he made you feel like you're the one doing the lab tests even if it was just in the classroom. He was very interactive towards the students"
+
+#####Discouraging example:
+* "very little class interaction during lecture"
+    - I try to have an in class activity during every lecture that reinforces what we are discussing and hopefully encourages interaction. I walk around from group to group discussing the assignment and hopefully get a feel for how students are grasping the concepts. So this comment is frustrating.
+
+#####Contradicting example:
+* "This class was much more difficult than anticipated. I was intending for it to be my "leisure class" as my course load this semester is rather intense, but that was not the case."
+    - This was for a senior level course called "Quantitative Analysis." 
+    
+##The problem
+It is very easy for me to only consider specific comments and forget all the other ones. This could be due to confirmation bias after reading a good comment or my frustration over a bad comment. Either way, it is difficult to get an overall course summary on what I did well and what needs to change from open ended statements. 
+
+## A solution: Data Science
+
+I recently learned about text mining and sentiment analysis in R and I've been looking for a real world opportunity to use it. Actually that was only part of my motivation for this. After seeing the word "boring" multiple times in my Quantitative Analysis course comments, I thought it would be funny if I made a wordcloud and that was one of the biggest words (meaning it was one of the most commonly appearing words). I thought I could frame the results and use it as motivation for future course development.
+
+This is actually quite easy to do in R. Much like analyzing other data in R, you need to be able to read it in a format that is tab or comma delimited. I did this by copying and pasting all my comments into a text editor (Sublime Text) and saving it as a .txt file. After that everything was completed in R. I will share the results here, with my code imbedded  in case you want to do this for your own courses or for some other application.
+
+![](wc1.png)
+
+I'll show the finished product first. As you can see "boring" wasn't one of the most used word. Many of the words are consistent with my teaching style. I try to focus on applied learning with labs and in class activities, so those words appear a lot. Other words appear that likely should have been filtered out since they are part of the course name. In this course, Exercise Testing and Prescription, the title likely results in the words "exercise" and "testing" usage frequency being inflated. My name probably should have been filtered out also.
+
+##How the sauce is made
+Let's take a look at how this is done and we can dive a little deeper as well. For this project we will need the tm and wordcloud2 packages.
+
+```{r}
+library(tm)
+library(wordcloud2)
+```
+Now we need to read our data in. 
+```{r}
+EXRX_cloud<-readLines("KINE4320.txt")
+```
+Now this needs to be converted to a corpus so that it can be manipulated.
+```{r}
+EXRX_corpus<-Corpus(VectorSource(EXRX_cloud))
+```
+At this stage it would be a good idea to inspect() your corpus to make sure everything shows up correctly, but I am not going to do that here as it would be a lot of lines.
+
+Currently, my corpus is set up is with line numbers, lots of punctuation (sometimes not), capitalized letters, and some other things that won’t work well for a wordcloud. So we will clean that up in the next few steps with the map function in the tm package.
+```{r}
+##convert everythhing to lowercase
+EXRX_clean_corpus <- tm_map(EXRX_corpus,tolower)
+##remove the comment numbers. You should also notice that I am now using EXRX_clean_corpus inside of the map function and will be from now on.
+EXRX_clean_corpus<- tm_map(EXRX_clean_corpus, removeNumbers)
+##remove the punctuation
+EXRX_clean_corpus<- tm_map(EXRX_clean_corpus, removePunctuation)
+##Get rid of extra spaces
+EXRX_clean_corpus<- tm_map(EXRX_clean_corpus, stripWhitespace)
+##remove stop words (the, that, etc.)
+EXRX_clean_corpus<- tm_map(EXRX_clean_corpus, removeWords, stopwords())
+##I am commenting out the next line of code, because I do not want to stem the document, but that is a common practice when creating a wordcloud. What stemming will do is shortening words to their roots and then combining all of those. From experience doing this, it doesn't work well in this scenario. For example 'statistics' becomes 'statist' and those are very different things. So if you want to do that, here's how you would.
+##EXRX_clean_corpus<- tm_map(EXRX_clean_corpus, stemDocument)
+
+#Lastly, there are some words that aren't necessarily stop words, but I don't want them being counted. So I am factoring those out here.
+EXRX_clean_corpus<-tm_map(EXRX_clean_corpus, removeWords, c("class", "yes"))
+```
+This is another point were you should use the tm inspect function to check your work. Again, I’m not going to do it here because it will take up a lot of space. But you should inspect(EXRX_clean_corpus).
+
+Now we can create the wordcloud. I am using the wordcloud2 package that will create this as html, but the wordcloud package will also work.
+
+```{r}
+##turn the corpus we've been working with into a term document matrix
+tdm <- TermDocumentMatrix(EXRX_clean_corpus)
+l <- as.matrix(tdm)
+##sort it and make it a data frame
+x <- sort(rowSums(l),decreasing=TRUE)
+p <- data.frame(word = names(x),freq=x)
+#check it out
+head(p)
+```
+Now we can see the frequency of words used.
+
+Let’s make the actual wordcloud. It’s simple from this point. Since it is .html instead of a .png or .jpg, you can hover over each word to get the frequency of use.
+
+```{r}
+wordcloud2(p)
+```
+This looks pretty cool and it is a good way to visualize key terms used frequently. The size of the words are representative of the amount of times they were used. This should sound familiar to a bar plot from a visualization standpoint. A bar plot may not be as visually appealing, and it won't be able to display near as many words, but it's arguably easier to interpret. 
+```{r}
+barplot(p[1:10,]$freq, las = 2, names.arg = p[1:10,]$word,
+        col ="springgreen", main ="Most frequent words",
+        ylab = "Word frequencies")
+```
+
+Most of this makes since. I focus a lot on applied learning in this class so they do a lot of “in class actvities” and labs. I probably should have filtered out the words “nothing” and “detracted” since they are responding to a question about what detracted from their learning at one point. Many of those answers were “nothing.”
+
+The last bit of exploratory analysis that I will do is correlation. I will specifically look for the words that are most correlated with these words that appear the most and I will set a limit of 0.3 (low end of moderate r value), so that I only see words that correlate higher than that. I will start with the word “labs,” since it is the most commonly used word.
+
+```{r}
+findAssocs(tdm, terms = "labs", corlimit = 0.3)
+```
+
+Looking at the results, this mostly makes sense. I’m assuming “hands” was part of “hands on” before the corpus was cleaned. The words “excited” and “love” being associated with “labs” is probably a good thing. But the word “missed” being associated at the same value (r = 0.50) means that at least a few people made comments about missing labs.
+
+For me, this is a much more objective way to interpret my evaluations with the added benefit of removing any potential bias I may have when I just read through the comments. This only really works with large classes and if you have a high response rate on your evaluations. If you have a small class size or a small number of responses, this really isn’t necessary.

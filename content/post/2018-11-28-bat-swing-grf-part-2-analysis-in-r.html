@@ -1,0 +1,152 @@
+---
+title: 'Bat Swing GRF Part 2: Analysis in R'
+author: ''
+date: '2018-11-28'
+slug: bat-swing-grf-part-2-analysis-in-r
+categories: 
+  - Baseball
+  - Athlete Monitoring
+tags:
+  - Baseball
+  - GRF
+  - R
+subtitle: ''
+description: ''
+image: ''
+---
+
+
+
+<p>Prior to analysis, these trials have already been cleaned. By that I mean that only the force production necessary for this movement are present in the data. There is no blank space or data with the athletes simply standing on the force plate. As a result of that, the analysis is much easier, but the force values of each force plate cannot be summed since the time has been altered (trimmed at the beginning or the end). Each athlete in this data set completed 3 trials and I’ve removed the name of one of them so it can be used as an example here.</p>
+<div id="read-your-data-in" class="section level2">
+<h2>Read your data in</h2>
+<p>First we need to read in the file. You can name assign it whatever name you want. I always pick something short.</p>
+<pre class="r"><code>F1&lt;-read.csv(&quot;Player1.csv&quot;)</code></pre>
+<p>Next, since these force plates are biaxial (vertical (GRFz) and mediolateral (GRFx) in this case), I want to get the resultant force produced. I’ll do that with Pythagorean theorem and assign it to a variable name for each trial and each leg (drive leg (DL) and stride leg (SL).</p>
+</div>
+<div id="get-the-resultant-forces" class="section level2">
+<h2>Get the resultant forces</h2>
+<pre class="r"><code>F1$DLRes1&lt;-sqrt(F1$GRFzDL1^2 + F1$GRFxDL1^2)
+F1$SLRes1&lt;-sqrt(F1$GRFzSL1^2 + F1$GRFxSL1^2)
+F1$DLRes2&lt;-sqrt(F1$GRFzDL2^2 + F1$GRFxDL2^2)
+F1$SLRes2&lt;-sqrt(F1$GRFzSL2^2 + F1$GRFxSL2^2)
+F1$DLRes3&lt;-sqrt(F1$GRFzDL3^2 + F1$GRFxDL3^2)
+F1$SLRes3&lt;-sqrt(F1$GRFzSL3^2 + F1$GRFxSL3^2)</code></pre>
+</div>
+<div id="calculating-the-variables-of-interest" class="section level2">
+<h2>Calculating the variables of interest</h2>
+<p>Now lets get to performing the analysis. Caluclating peak force (PPF) is fairly simple. We will also calclate the time when it occurs (PFt), which we will need for the RFD calculation later. This is also fairly simple in that we are asking for the time which the resultant force is equal to the varialbe we just assigned to PPF or peak force. The only trick here is the addition of the [1]-1 at the end. The reason that is there is so that we pull the first occurence of this event. If the same exact value appears more than once, your code will throw an error. This does happen sometimes with consecutive values when you sample at high rates. Adding this in will prevent those issues.</p>
+<pre class="r"><code>PF &lt;- max(F1$DLRes1, na.rm = TRUE)
+print(PF)</code></pre>
+<pre><code>## [1] 894.4183</code></pre>
+<pre class="r"><code>PFt &lt;- F1$Time1[which(F1$DLRes1==PF)[1]-1] </code></pre>
+<p>Now let’s work on RFD. This will be calculated as the slope of the line from the initial force produced to the peak force. So this will be rise over run (change in force/change in time). Meaning we will need to calculate those first. We will start with the initial force produced (FInit) and the time at which it is produced (FInitT). Here we are simply calling for the first value and then for the time which that force value occurs.</p>
+<pre class="r"><code>FInit&lt;- F1$DLRes1[1]
+FInitT &lt;- F1$Time1[which(F1$DLRes1==FInit)]</code></pre>
+<p>We already have the time which PF occurs, so now we just need to calculate the chage in Force and the change in time and divide them. Again, we’ll print RFD to check it.</p>
+<pre class="r"><code>changeT &lt;- PFt + FInitT
+changeF &lt;- PF - FInit
+RFD &lt;- changeF/changeT
+print(RFD)</code></pre>
+<pre><code>## [1] 1463.233</code></pre>
+<p>To calculate impulse, we will need the minimum values (force and time) which occur at the end of the drive leg f/t curve when the weight shift occurs. We need this as an end point marker to get the area under the curce (AUC). The time when the minimum force occurs will need to have the [1]-1 at the end similar to the PFt variable.</p>
+<pre class="r"><code>Fmin &lt;- min(F1$DLRes1,na.rm = TRUE)
+Fmint &lt;- F1$Time1[which(F1$DLRes1==Fmin)[1]-1]</code></pre>
+<p>We can caluclate the AUC with the help of the MESS package. In order to calculate it, we will need several arguments including: what are the x and y values, from what point to what point do we want to calculate the area for and the type. Force-time curves are almost always set up with time on the x axis and force on the y axis, so that gives us the information for the first part. The from and to are going to be the initial time and minimum time already assigned. We will use linear for the type.</p>
+<pre class="r"><code>library(MESS)</code></pre>
+<pre><code>## Warning: package &#39;MESS&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## Loading required package: geepack</code></pre>
+<pre><code>## Loading required package: geeM</code></pre>
+<pre><code>## Warning: package &#39;geeM&#39; was built under R version 3.4.4</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre><code>## Warning: package &#39;Matrix&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code>Impulse &lt;- auc(F1$Time1, F1$DLRes1, from = FInitT, to = Fmint, type = c(&quot;linear&quot;))
+print(Impulse)</code></pre>
+<pre><code>## [1] 555.1382</code></pre>
+<p>That’s pretty much it for the drive leg. This can be repeated for additional trials, but you’ll need to change the assignments slightly. I do this with numbers at the end, and sometimes letters (b to indicate stride leg).</p>
+<pre class="r"><code>PF2 &lt;- max(F1$DLRes2, na.rm = TRUE)
+PFt2 &lt;- F1$Time2[which(F1$DLRes2==PF2)[1]-1]                     
+FInit2&lt;- F1$DLRes2[1]
+FInitT2 &lt;- F1$Time2[which(F1$DLRes2==FInit2)]
+Fmin2 &lt;- min(F1$DLRes2,na.rm = TRUE)
+Fmint2 &lt;- F1$Time2[which(F1$DLRes2==Fmin2)[1]-1]
+changeT2 &lt;- PFt2 + FInitT2
+changeF2 &lt;- PF2 - FInit2
+RFD2 &lt;- changeF2/changeT2
+Impulse2 &lt;- auc(F1$Time2, F1$DLRes2, from = FInitT2, to = Fmint2, type = c(&quot;linear&quot;))
+
+PF3 &lt;- max(F1$DLRes3, na.rm = TRUE)
+PFt3 &lt;- F1$Time3[which(F1$DLRes3==PF3)[1]-1]                     
+FInit3&lt;- F1$DLRes3[1]
+FInitT3 &lt;- F1$Time3[which(F1$DLRes3==FInit3)]
+Fmin3 &lt;- min(F1$DLRes3,na.rm = TRUE)
+Fmint3 &lt;- F1$Time3[which(F1$DLRes3==Fmin3)[1]-1]
+changeT3 &lt;- PFt3 + FInitT3
+changeF3 &lt;- PF3 - FInit3
+RFD3 &lt;- changeF3/changeT3
+Impulse3 &lt;- auc(F1$Time3, F1$DLRes3, from = FInitT3, to = Fmint3, type = c(&quot;linear&quot;))</code></pre>
+<p>The stride leg is almost identical in analysis, but the impulse arguments will need to be changed. Specifically, we want to get the area from the initial force produced to the final time since these trials have already been cleaned. That is acheived by the max(F1$Timeb) command.</p>
+<pre class="r"><code>PF1b &lt;- max(F1$SLRes1, na.rm = TRUE)
+PFt1b &lt;- F1$Time1b[which(F1$SLRes1==PF1b)[1]-1]                     
+FInit1b&lt;- F1$SLRes1[1]
+FInitT1b &lt;- F1$Time1b[which(F1$SLRes1==FInit1b)]
+Fmin1b &lt;- min(F1$SLRes1,na.rm = TRUE)
+Fmint1b &lt;- F1$Time1b[which(F1$SLRes1==Fmin1b)]
+changeT1b &lt;- PFt1b + FInitT1b
+changeF1b &lt;- PF1b - FInit1b
+RFD1b &lt;- changeF1b/changeT1b
+Impulse1b &lt;- auc(F1$Time1b, F1$SLRes1, from = FInitT1b, to = max(F1$Time1b, na.rm = TRUE), type = c(&quot;linear&quot;))
+
+PF2b &lt;- max(F1$SLRes2, na.rm = TRUE)
+PFt2b &lt;- F1$Time2b[which(F1$SLRes2==PF2b)[1]-1]                     
+FInit2b&lt;- F1$SLRes2[1]
+FInitT2b &lt;- F1$Time2b[which(F1$SLRes2==FInit2b)]
+Fmin2b &lt;- min(F1$SLRes2,na.rm = TRUE)
+Fmint2b &lt;- F1$Time2b[which(F1$SLRes2==Fmin2b)]
+changeT2b &lt;- PFt2b + FInitT2b
+changeF2b &lt;- PF2b - FInit2b
+RFD2b &lt;- changeF2b/changeT2b
+Impulse2b &lt;- auc(F1$Time2b, F1$SLRes2, from = FInitT2b, to = max(F1$Time2b, na.rm = TRUE), type = c(&quot;linear&quot;))
+
+PF3b &lt;- max(F1$SLRes3, na.rm = TRUE)
+PFt3b &lt;- F1$Time3b[which(F1$SLRes3==PF3b)[1]-1]                     
+FInit3b&lt;- F1$SLRes3[1]
+FInitT3b &lt;- F1$Time3b[which(F1$SLRes3==FInit3b)]
+Fmin3b &lt;- min(F1$SLRes3,na.rm = TRUE)
+Fmint3b &lt;- F1$Time3b[which(F1$SLRes3==Fmin3b)]
+changeT3b &lt;- PFt3b + FInitT3b
+changeF3b &lt;- PF3b - FInit3b
+RFD3b &lt;- changeF3b/changeT3b
+Impulse3b &lt;- auc(F1$Time3b, F1$SLRes3, from = FInitT3b, to = max(F1$Time3b, na.rm = TRUE), type = c(&quot;linear&quot;))</code></pre>
+</div>
+<div id="getting-the-means-combining-them-into-a-data-frame" class="section level2">
+<h2>Getting the means &amp; combining them into a data frame</h2>
+<p>Now, we need to get the average of the 3 trials for each variable. I do that when I put it into a data frame for each leg.</p>
+<pre class="r"><code>Player1DL&lt;- data.frame(DL.PF = (PF+PF2+PF3)/3,
+                      DL.RFD = (RFD+RFD2+RFD3)/3,
+                      DL.Impulse = (Impulse+Impulse2+Impulse3)/3)
+
+Player1SL&lt;- data.frame(SL.PF = (PF1b+PF2b+PF3b)/3,
+                       SL.RFD = (RFD1b+RFD2b+RFD3b)/3,
+                       SL.Impulse = (Impulse1b+Impulse2b+Impulse3b)/3)
+
+print(Player1DL)</code></pre>
+<pre><code>##      DL.PF   DL.RFD DL.Impulse
+## 1 895.8249 1371.313   569.6043</code></pre>
+<p>Now we can combine these into one data frame.</p>
+<pre class="r"><code>Player1&lt;-cbind(Player1DL, Player1SL)
+print(Player1)</code></pre>
+<pre><code>##      DL.PF   DL.RFD DL.Impulse    SL.PF   SL.RFD SL.Impulse
+## 1 895.8249 1371.313   569.6043 1204.453 3972.014   326.8253</code></pre>
+</div>
+<div id="combining-individual-players-data-together-and-creating-a-summary-file" class="section level2">
+<h2>Combining individual players’ data together and creating a summary file</h2>
+<p>That’s pretty much it. It’s now just wash, rinse, and repeat for additional players. Then if want to combine all their data into one data frame, you can do so with the row bind command and separate each player name by a comma. I only have one here, because that’s all I’m using in this example.</p>
+<pre class="r"><code>Data &lt;- data.frame(rbind(Player1))
+##this should be the same as above since we didn&#39;t add any additional players.
+print(Data)</code></pre>
+<pre><code>##      DL.PF   DL.RFD DL.Impulse    SL.PF   SL.RFD SL.Impulse
+## 1 895.8249 1371.313   569.6043 1204.453 3972.014   326.8253</code></pre>
+<p>You can then write your data to a csv file if you wish. It will save in your working directory or wherever you wish if you indicate the file path.</p>
+<pre class="r"><code>write.csv(Data,file = &#39;BatswingGRFData.csv&#39;)</code></pre>
+</div>
