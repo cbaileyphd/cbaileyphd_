@@ -19,7 +19,7 @@ home = ["HTML", "RSS", "Algolia"]
   keyword = "sport sciecne, data science, education, , strength and conditioning"
   slogan = "A place for sport science, strength and conditioning, and education"
 
-  image_404 = "404.gif"
+  image_404 = "SP404.jpg"
   title_404 = "Sorry, the page you are looking for is missing."
 
   # leancloud storage for page view counter
