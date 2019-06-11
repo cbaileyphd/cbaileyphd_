@@ -13,6 +13,9 @@ tags:
 subtitle: ''
 description: ''
 image: ''
+output:
+  blogdown::html_page:
+    toc: true
 ---
 
 ```{r global_options, include=FALSE}
