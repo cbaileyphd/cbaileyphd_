@@ -6,10 +6,19 @@
     <description>Recent content in Baseball on Chris Bailey, PhD, CSCS*D, RSCC</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 28 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 09 Mar 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/baseball/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Variability and Measure Magnitude in Performance Data</title>
+      <link>/post/variability-and-measure-magnitude-in-performance-data/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/post/variability-and-measure-magnitude-in-performance-data/</guid>
+      <description>Getting started with monitoring data Initially, we shoud be primarily concerned with reliability. Like me, you probably pick assessments that have shown to be reliable and valid previously in research. But, you should also continuously evaluate your own reliability. If you are completing your own analysis and producing your own visualizations in R, you can build this into your code somewhat easily. Next we might evaluate our data for normality if we are going to perform any statistical analyses that depend on normality.</description>
+    </item>
     
     <item>
       <title>Bat Swing GRF Part 2: Analysis in R</title>

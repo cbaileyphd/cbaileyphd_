@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Chris Bailey, PhD, CSCS*D, RSCC">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="//img/header.png">
+    <meta property="twitter:image" content="//img/header.png" />
+    
+
+    
+    <meta name="title" content="Variability and Measure Magnitude in Performance Data" />
+    <meta property="og:title" content="Variability and Measure Magnitude in Performance Data" />
+    <meta property="twitter:title" content="Variability and Measure Magnitude in Performance Data" />
+    
+
+    
+    <meta name="description" content="A place for sport science, education, &amp; strength and conditioning">
+    <meta property="og:description" content="A place for sport science, education, &amp; strength and conditioning" />
+    <meta property="twitter:description" content="A place for sport science, education, &amp; strength and conditioning" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="sport sciecne, data science, education, , strength and conditioning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Variability and Measure Magnitude in Performance Data-Chris Bailey, PhD Blog</title>
+
+    <link rel="canonical" href="/post/variability-and-measure-magnitude-in-performance-data/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+	
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/docco.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Chris Bailey, PhD, CSCS*D, RSCC</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/athlete-monitoring">athlete-monitoring</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/baseball">baseball</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/data-science">data-science</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/categories/education">education</a>
+                    </li>
+                    
+                    
+		    
+                        <li><a href="/top/about/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/img/header.png')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/baseball" title="Baseball">
+                            Baseball
+                        </a>
+                        
+                        <a class="tag" href="/tags/data-science" title="Data Science">
+                            Data Science
+                        </a>
+                        
+                        <a class="tag" href="/tags/r" title="R">
+                            R
+                        </a>
+                        
+                    </div>
+                    <h1>Variability and Measure Magnitude in Performance Data</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+			Posted by 
+			
+			    Chris Bailey
+			 
+			on 
+			Saturday, March 9, 2019
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>TOC</h2>
+                </header>
+                
+                
+                
+
+
+<div id="getting-started-with-monitoring-data" class="section level2">
+<h2>Getting started with monitoring data</h2>
+<p>Initially, we shoud be primarily concerned with reliability. Like me, you probably pick assessments that have shown to be reliable and valid previously in research. But, you should also continuously evaluate your own reliability. If you are completing your own analysis and producing your own visualizations in R, you can build this into your code somewhat easily. Next we might evaluate our data for normality if we are going to perform any statistical analyses that depend on normality.</p>
+<p>One place that is quite often missed in our initial data screening and analysis is something that heavily influences reliability and validity. It is probably more of an issue than many of us realize because it is so rarely evaluated. I am talking about heteroscedasticity (sometimes spelled with a k). Heteroscedasticity essentially means that the specific variable or key performance indicator (KPI) may vary unequally depending on the measure size. A realy high value may have more variation or the opposite could be true with low values. If we are not testing for this, we are essentially assuming homosecdasticity (equal variance regardless of measure magnitude). Since we deal with human performance data, we may often see extreme values (very high or very low) values on a regular basis. But, if are data are heteroscedastic, maybe we shouldn’t be too confident in the validity and reliability of that data. This post is going to be dealing with and detecting this issue. This can be tested for statistically fairly quickly with some R packages (for example, lmtest or gvlma) and probably with other statistical software as well, but I will show how to see it visually as well. Visualizing it likely helps us understand it further, even if it takes a little longer.</p>
+</div>
+<div id="the-data" class="section level2">
+<h2>The data</h2>
+<p>We’ll start by reading in the data and calling on some specific packages that we will use. This data set is from 35 NCAA DIII baseball players who performed 2 maximal effort countermovement jump trials. This specific testing data was selected because it is the first of the year. This was the first time jumping off a force plate for probably all of the new players. If there was going to be an issue with reliability, one should expect it to be early on, with reliability increasing somewhat as athletes become more familiar with jump testing. This seems to be particularly true for the new athletes who aren’t used to jumping without an armswing.</p>
+<p>The jump analysis has already been performed and a table was created to give us the mean of the trials for each variable as well as the individual trials. Names and body mass have been removed. The other variables include jump height (JH), peak power (PP), rate of force development (RFD), peak propulsive force (PF), and peak landing force (PLF). They are being rounded to 2 decimal places.</p>
+<pre class="r"><code>library(data.table)
+library(ggplot2)
+library(ggthemes)
+library(dplyr)
+p &lt;- fread(&quot;~/Desktop/BaseballCMJData.csv&quot;)
+p&lt;-select(p, -Athlete, -Mass)
+p&lt;-round(p, 2)</code></pre>
+<p>As discussed earlier, we should start by evaluating reliability. Here, I’ll look at relative reliability with ICCs. Unfortunately</p>
+<pre class="r"><code>library(ICC)
+ICCdf&lt;-fread(&quot;~/Desktop/BaseballCMJData1.csv&quot;)
+ICCdf$Athlete&lt;- as.factor(ICCdf$Athlete)
+JH&lt;-ICCest(Athlete, JH, data = ICCdf, alpha = 0.05, CI.type = c(&quot;THD&quot;, &quot;Smith&quot;))
+PP&lt;-ICCest(Athlete, PP, data = ICCdf, alpha = 0.05, CI.type = c(&quot;THD&quot;, &quot;Smith&quot;))
+RFD&lt;-ICCest(Athlete, RFD, data = ICCdf, alpha = 0.05, CI.type = c(&quot;THD&quot;, &quot;Smith&quot;))
+PF&lt;-ICCest(Athlete, PF, data = ICCdf, alpha = 0.05, CI.type = c(&quot;THD&quot;, &quot;Smith&quot;))
+PLF&lt;-ICCest(Athlete, PLF, data = ICCdf, alpha = 0.05, CI.type = c(&quot;THD&quot;, &quot;Smith&quot;))
+ICCresults&lt;-data.frame(JH=JH$ICC, PP=PP$ICC, RFD=RFD$ICC, PF=PF$ICC, PLF=PLF$ICC) ##Note that I am specifically only calling the ICC part of the ICCest values produced. As a result, I will not see the 95% confidcence intervals of those values. You should look at those, I am only doing that here because it takes up less screen space. 
+ICCresults&lt;-ICCresults %&gt;%
+  mutate_if(is.numeric, ~round(., 3))
+knitr::kable(ICCresults)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">JH</th>
+<th align="right">PP</th>
+<th align="right">RFD</th>
+<th align="right">PF</th>
+<th align="right">PLF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">0.771</td>
+<td align="right">0.9</td>
+<td align="right">0.845</td>
+<td align="right">0.913</td>
+<td align="right">0.633</td>
+</tr>
+</tbody>
+</table>
+<p>Here we see that PLF is the least reliable variable (ICC = 0.633, [0.387 - 0.796]), but all the rest might be considered acceptable &gt;0.7. You don’t see the 95%CI’s in the table because I excluded them to make it more readable. If you call the ICCest result of each variable, you would get the full information.</p>
+<p>Now we can look at absolute reliability measures, in this case, coefficients of variation (CV). The CV is just the ratio of the standard deviation to the mean. It is multiplied by 100 to be represented as a percent. This can also be done with the sjstats package cv function as done below.</p>
+<pre class="r"><code>jhCV&lt;-sjstats::cv(p$JH)*100
+ppCV&lt;-sjstats::cv(p$PP)*100
+rfdCV&lt;-sjstats::cv(p$RFD)*100
+pfCV&lt;-sjstats::cv(p$PF)*100
+plfCV&lt;-sjstats::cv(p$PLF)*100
+
+CV&lt;-data.frame(JH = jhCV, PP = ppCV, RFD = rfdCV, PF = pfCV, PLF = plfCV)
+CV&lt;-round(CV,2)
+knitr::kable(CV)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="right">JH</th>
+<th align="right">PP</th>
+<th align="right">RFD</th>
+<th align="right">PF</th>
+<th align="right">PLF</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">16.34</td>
+<td align="right">13.19</td>
+<td align="right">65.06</td>
+<td align="right">21.85</td>
+<td align="right">22.84</td>
+</tr>
+</tbody>
+</table>
+<p>We would like the CVs to be lower than 15%, so we obviously have some violations here. But keep in mind this is the first day of a weekly monitoring protocol, so these values may decrease and become acceptable as time goes on. I would wait a few weeks before making a decision about throwing variables out.</p>
+</div>
+<div id="heteroscedasticity" class="section level2">
+<h2>Heteroscedasticity</h2>
+<p>First, lets add in the intraindividual differences between trials for each variable. We will use these to see if those who produce very large or very small values have the same chance to vary as those who do not.</p>
+<pre class="r"><code>p$JHdiff&lt;-abs(p$JH1-p$JH2)
+p$PPdiff&lt;-abs(p$PP1-p$PP2)
+p$RFDdiff&lt;-abs(p$RFD1-p$RFD2)
+p$PFdiff&lt;-abs(p$PF1-p$PF2)
+p$PLFdiff&lt;-abs(p$PLF1-p$PLF2)
+head(p)</code></pre>
+<pre><code>##       JH   JH1   JH2      PP     PP1     PP2      RFD     RFD1     RFD2
+## 1: 33.80 33.41 34.19 4095.96 4078.19 4113.72  2769.87  2072.99  3466.74
+## 2: 37.57 38.59 36.56 5056.99 5123.89 4990.09 12230.43  8051.97 16408.89
+## 3: 30.11 30.53 29.68 4186.75 4216.04 4157.45  2557.01  2851.88  2262.15
+## 4: 36.45 34.32 38.59 3934.84 3809.79 4059.88  2253.66  2165.22  2342.10
+## 5: 31.29 32.78 29.80 4164.87 4260.65 4069.09  4124.39  3483.75  4765.04
+## 6: 27.32 27.67 26.97 3415.35 3436.63 3394.07 10571.72 10996.40 10147.04
+##         PF     PF1     PF2     PLF    PLF1    PLF2 JHdiff PPdiff RFDdiff
+## 1: 2043.99 1924.08 2163.89 7922.00 8473.38 7370.61   0.78  35.53 1393.75
+## 2: 2928.29 2750.66 3105.91 7053.33 6797.44 7309.22   2.03 133.80 8356.92
+## 3: 2035.20 2105.46 1964.95 6341.77 6689.75 5993.79   0.85  58.59  589.73
+## 4: 1826.65 1794.86 1858.44 6139.69 6705.91 5573.46   4.27 250.09  176.88
+## 5: 2533.76 2368.84 2698.67 5819.41 5814.65 5824.17   2.98 191.56 1281.29
+## 6: 2747.53 2770.85 2724.20 4203.07 3730.65 4675.48   0.70  42.56  849.36
+##    PFdiff PLFdiff
+## 1: 239.81 1102.77
+## 2: 355.25  511.78
+## 3: 140.51  695.96
+## 4:  63.58 1132.45
+## 5: 329.83    9.52
+## 6:  46.65  944.83</code></pre>
+<div id="start-visually" class="section level3">
+<h3>Start visually</h3>
+<p>Let’s visually evaluate for the presence of heteroscedasticity by plotting the individual differences against the means. This is essentially creating a linear model where the measure variance (i.e. JHdiff) is being predicted by the measure magnitude (mean of the variable trials). If the data are homoscedastic (equal chance of variablity no matter what the measure magnitude is), then the data that aren’t clustered around the linear model should not have any trend. If the data are heteroscedastic, then a trend may be visible (more variance at either high or low values). If you were to draw an outline of all the data points and the shape is a rectangle, then the data are likely homoscedastic. If the shape resembles more of a triangle/funnel with the data close to the line at one side and more spread out along the other, then the data are likely heteroscedastic. Let’s take a look.</p>
+<pre class="r"><code>ggplot(p, aes(JH,JHdiff))+geom_point()+ geom_smooth(method=&#39;lm&#39;) +
+  theme_minimal() +
+  ggtitle(&quot;Jump Height (cm)&quot;) +
+  ylab(&quot;Residuals&quot;) +
+  xlab(&quot;JH means&quot;)</code></pre>
+<p><img src="/post/2019-03-09-variability-and-measure-magnitude-in-performance-data_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>Using geom_encircle from the ggalt package, I may be able to better display what I mean by outlining the data and its shape. This step likely is not necessaary once the point is understood.</p>
+<pre class="r"><code>library(ggalt)
+ggplot(p, aes(JH,JHdiff))+geom_point()+ geom_smooth(method=&#39;lm&#39;) +
+  theme_minimal() +
+  ggtitle(&quot;Jump Height (cm)&quot;) +
+  ylab(&quot;Residuals&quot;) +
+  xlab(&quot;JH means&quot;) + 
+  geom_encircle()</code></pre>
+<p><img src="/post/2019-03-09-variability-and-measure-magnitude-in-performance-data_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>In this way we can see how the shape is more broad toward the higher jump height values. This is also a good opportunity to see how a couple of data points (in the top right) might be able skew our interpretation. But there are still quite a few others that deviate from the model below that as well. This may visually indicate that jump height is heteroscedastic, but statistical evidence is necessary to confirm this.</p>
+<p>Let’s do the same thing with another variable (peak power).</p>
+<pre class="r"><code>ggplot(p, aes(PP,PPdiff))+geom_point()+ geom_smooth(method=&#39;lm&#39;) +
+  theme_minimal() +
+  ggtitle(&quot;Peak Power (watts)&quot;) +
+  ylab(&quot;Residuals&quot;) +
+  xlab(&quot;PP means&quot;) + 
+  geom_encircle()</code></pre>
+<p><img src="/post/2019-03-09-variability-and-measure-magnitude-in-performance-data_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Here we can see that the shape is more rectangular. There are a few points deviating from the model, but not necessarily trended toward either end. This should visually indicate that peak power in this sample is homoscedastic.</p>
+<p>Now let’s look at all the data plotted.</p>
+<pre class="r"><code>gridExtra::grid.arrange(JH, PP, RFD, PF, PLF)</code></pre>
+<p><img src="/post/2019-03-09-variability-and-measure-magnitude-in-performance-data_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Looking at the plots, we can definitely see that there are some data points that deviate away from the models. Specifically looking at peak landing force, there may be a noticeable trend in that those that land with the highest forces also have the most measurement variaability.</p>
+</div>
+</div>
+<div id="add-in-some-statistics" class="section level2">
+<h2>Add in some statistics</h2>
+<p>Now let’s add some statistical evidince with a Breusch-Pagan test from the lmtest package. We’ll start with jump height. We first need to create a linear model predicting the measure variance by the measure magnitude, similar to the plots above.</p>
+<pre class="r"><code>library(lmtest)
+##Create the model
+JHm&lt;-lm(p$JHdiff~p$JH)
+##run the Breusch-Pagan test on the model
+bptest(JHm)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  JHm
+## BP = 8.8708, df = 1, p-value = 0.002898</code></pre>
+<p>That statistically significant value of 0.002898 (&lt;0.01) indicates that we do have heteroscedasticity in JH. We are rejecting the null hypothesis that heteroscedasticity is not present. This is a decent sample size with 35 baseball players, but it looks like we have a couple of data points that may be skewing the results as noted earlier. Give it a few weeks and this may go away. That being said, this could be an actual issue given the other points deviating from the model. A larger sample would help to either confirm or reject this notion.</p>
+<p>It’s also worth noting that there is an easier way to plot the linear model than was done above. It’s not quite as pretty, but it’s faster if you’ve already created the model. Once the model has been created plot(modelname) will produce several plots of the model. The first plot shows the residual values plotted against the fitted model pretty much identically to the ones above.</p>
+<pre class="r"><code>par(mfrow=c(2,2))
+plot(JHm)</code></pre>
+<p><img src="/post/2019-03-09-variability-and-measure-magnitude-in-performance-data_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>We can also check to see how great our model is (predicting the amount of variablity in JH by the measure magnitude).</p>
+<pre class="r"><code>summary(JHm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = p$JHdiff ~ p$JH)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.8702 -1.7817 -0.4153  0.6675  8.9286 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -5.92921    3.03027  -1.957  0.05889 . 
+## p$JH         0.25081    0.09024   2.779  0.00892 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.851 on 33 degrees of freedom
+## Multiple R-squared:  0.1897, Adjusted R-squared:  0.1651 
+## F-statistic: 7.725 on 1 and 33 DF,  p-value: 0.008921</code></pre>
+<p>Our model fit is statistically significant (p = 0.008921), but it is also important to evaluate its practical significance. It only has an adjusted-R squared of 0.165, so we can predict 16.5% of the variance’s variance by the measure magnitude alone.</p>
+<p>Let’s look at the rest of the BPtest results. Here’s peak power.</p>
+<pre class="r"><code>library(lmtest)
+PPm&lt;-lm(p$PPdiff~p$PP)
+bptest(PPm)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  PPm
+## BP = 2.1369, df = 1, p-value = 0.1438</code></pre>
+<p>RFD</p>
+<pre class="r"><code>library(lmtest)
+RFDm&lt;-lm(p$RFDdiff~p$RFD)
+bptest(RFDm)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  RFDm
+## BP = 3.9686, df = 1, p-value = 0.04636</code></pre>
+<p>We are close with RFD, or we may have evidence of heteroscedasticity depending on the critical value you chose (p&lt;0.01 or p&lt;0.05)</p>
+<p>PF</p>
+<pre class="r"><code>library(lmtest)
+PFm&lt;-lm(p$PFdiff~p$PF)
+bptest(PFm)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  PFm
+## BP = 3.6578, df = 1, p-value = 0.05581</code></pre>
+<p>and finally peak landing force (PLF)</p>
+<pre class="r"><code>library(lmtest)
+PLFm&lt;-lm(p$PLFdiff~p$PLF)
+bptest(PLFm)</code></pre>
+<pre><code>## 
+##  studentized Breusch-Pagan test
+## 
+## data:  PLFm
+## BP = 7.9904, df = 1, p-value = 0.004703</code></pre>
+<p>It is interesting that we do contain heteroscedasticity in PLF. Given landing force’s generally unreliable nature, I would have assumed the chance to vary was the same (very high) no matter the magnitude. This may also be influenced by the usage of an instantaneous measure as opposed to something like impulse or RFD. Let’s check to see how great of a model this one is.</p>
+<pre class="r"><code>summary(PLFm)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = p$PLFdiff ~ p$PLF)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1118.10  -441.17   -20.17   390.32  1689.70 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) -447.37061  524.35643  -0.853   0.3997   
+## p$PLF          0.25229    0.09202   2.742   0.0098 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 681.2 on 33 degrees of freedom
+## Multiple R-squared:  0.1855, Adjusted R-squared:  0.1608 
+## F-statistic: 7.517 on 1 and 33 DF,  p-value: 0.009796</code></pre>
+<p>Again, it is statistically significant, but does not have a huge R squared value.</p>
+</div>
+<div id="practical-application" class="section level2">
+<h2>Practical Application</h2>
+<ul>
+<li>We should evaluate performance data to determine if it is reliable and determine if our data vary in a predictable way.</li>
+<li>We may have evidence that elite performers or poor performers may have a better chance at producing errors.</li>
+<li>If elite athletes (who produce data towards the extremes on normal data distributions) have a greater chance to produce errors, we may be making decisions based on bad data.
+<ul>
+<li>Evaluation of data for heteroscedasticity is likely more important in performance monitoring of high level athletes.</li>
+</ul></li>
+<li>Data transformation may reduce the presence of heteroscedasticity, but may not be practical if the resulting values are not logical.</li>
+</ul>
+<center>
+<img src="https://media.giphy.com/media/12jnTh8Dp0cFJS/200.gif" /><!-- --> <font size="2">giphy.com</font>
+</center>
+<br>
+<center>
+<a href="https://twitter.com/CBaileyPhD">follow me on Twitter</a>
+</center>
+<center>
+<a href="http://cbaileyphd.com/">personal website</a>
+</center>
+<p><br><br></p>
+</div>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/making-sense-of-student-evaluations-a-data-science-text-mining-approach/" data-toggle="tooltip" data-placement="top" title="Making sense of student evaluations: A data science/text mining approach">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        <a href="/tags/baseball" title="baseball">
+                            baseball
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/data-science" title="data-science">
+                            data-science
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/grf" title="grf">
+                            grf
+                        </a>
+                        
+                        
+                        
+                        <a href="/tags/r" title="r">
+                            r
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                    
+                    <li>
+                        <a href="mailto:chris.bailey2@unt.edu">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/CBaileyPhD?lang=en">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/cbaileyphd/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Chris Bailey, PhD, CSCS*D, RSCC 2019
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
