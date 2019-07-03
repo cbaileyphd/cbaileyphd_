@@ -1,0 +1,208 @@
+---
+title: 'Wireless Technology for Monitoring and Improving Performance in S&C: Part
+  1 Athlete Monitoring Basics'
+author: Chris Bailey
+date: '2019-07-01'
+slug: wireless-technology-for-monitoring-and-improving-performance-in-s-c-part-1-athlete-monitoring-basics
+categories:
+  - Athlete Monitoring
+tags:
+  - Athlete Monitoring
+subtitle: ''
+description: ''
+image: ''
+output:
+  blogdown::html_page:
+    toc: true
+---
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(knitr)
+
+```
+
+The following post comes from an adaptation of a talk I gave at the NSCA Nebraska State Clinic back in January. 
+
+## Objectives
+- Learn basic athlete monitoring techniques (part 1)
+- Learn about current technology that can be applied to S&C as well as other sport performance areas (part 2)
+- Learn about pitfalls and issues associated with these methods (part 2)
+- Be able to incorporate the previous objectives to produce data-driven justifications for making training and sport performance decsisions 
+
+## Why Wireless?
+There a lot of benefits to shedding the wires from our data collection equipment. But much like everything else, there are potential issues and pitfalls we may fall into if we aren't careful. Hopefully our first steps without the strings are better than Pinnochio's.
+
+```{r, echo=FALSE, fig.align='center', out.width = "70%"}
+knitr::include_graphics("https://thumbs.gfycat.com/CompetentSizzlingCreature-size_restricted.gif")
+```
+<center><br><font size="2">giphy.com</font></center>
+
+## Athlete Monitoring?
+Since it is the main focus of the first part of this write-up, it should probably be defined. The definition I like to use is: 
+
+>"Continual testing and evaluation of athletes (physically, phsyiologically, psychologically, etc.) throughout their careers (possibly beyond) as objectively as possible." 
+ `r tufte::quote_footer('A group of PhD students back in 2014, helping me prepare for an on-campus interview.')`
+
+
+I think that definition works because it hits several key areas that help differentiate athlete monitoring from testing. The first word is <i>continual</i>, implying that it must be done more than once and hopefully on a regular basis. While I don't think you absolutely have to monitor all the areas I mentioned, I think a well rounded monitoring program is very beneficial. Monitoring across a career is also important as we should seek to understand how individual athletes respond to training stimuli differently as they age. Finally, the word <i>objective</i> is in there. Whenever possible getting objective data works better than subjective data. Even if we ignore the potential error and learning effect associated with collecting subjective measures for the moment, objective data are still easier to work with for modelling and visualization purposes. Subjective measures have also come under fire lately for their predictive ability ([Rodríguez-Marroyo, 2015](https://www.ncbi.nlm.nih.gov/pubmed/25202917")) as well as athletes self-modulating work loads prior to reporting subjective measures thus influencing the ability of the practitioner to accurately quantify a workload ([Sampson et al., 2019](https://journals.lww.com/nsca-jscr/Abstract/publishahead/Subjective_Wellness,_Acute__Chronic_Workloads,_and.94944.aspx)).
+
+## What Athlete Monitoring is not...
+This means there is also something that is definitely not athlete monitoring. There are quite a few mistakes that will derail an athlete monitoring and sport science program if you are not careful. 
+
+#### Collecting data and not knowing what to do with it, or never using it at all
+
+This is very common. This is also a great way to lose the interest of your coach and athletes. They are often interested in testing, but not when you collect data an report back on it several weeks later. Take a look at the image below. 
+
+```{r, echo=FALSE, fig.align='center', out.width = "80%"}
+knitr::include_graphics("DataReturnTimeline.png")
+```
+
+I created this as a way to understand the relationship between testing time and level of interest from a theoretical/experience based-perspective. Obviously, the quicker we can get the data back the better. We will likely get a Peter Griffinesque response if we come back to the coaches and athletes weeks after the test with the data. That being said, there is future value in the form of research and understanding the training response. Unfortunately that will be of little value to the coaches and athletes who want to win now.
+
+```{r, echo=FALSE, fig.align='center', out.width = "70%"}
+knitr::include_graphics("https://media2.giphy.com/media/QgejSvXmwpvnW/giphy.gif")
+```
+<center><br><font size="2">giphy.com</font></center>
+
+#### We are not turning athletes into research projects. 
+ 
+Since it was just mentioned above, this seems like a good time to discuss this aspect. This does not mean that reasearch does not take place. In fact, it often does. But, that is not necessarily the primary goal. The primary goal should be sport performance driven in an athlete monitoring program. The research is often a by-product.
+
+#### Athlete monitoring is also not just pre/post season testing
+
+I'm happy that some are at least doing this, but this is not athlete monitoring. This leaves way too much time in between where something could go wrong that, if detected, might be repairable/preventable. If we don't test agian until the end of the season, it's too late. Take a look at the 2 plots below and come up with a quick conclusion. It's the same data represent 2 different ways.
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%"}
+knitr::include_graphics("PrePost1.png")
+knitr::include_graphics("PrePost2.png")
+```
+<center><font size="2">cbaileyphd.com</font></center><br>
+We should also consider the possibility that our single testing session was much better or much worse that the average testing session for a specific athlete. Looking at the plots above, that looks like an improvement. It's not. Look at again when I include the other 10 data points between the first and final sessions you saw above. The slope of the line is essentially 0 with one outlier that happened to be on the final day of testing. Why was there an outlier? There could be quite a few reasons, but this is the only day they were allowed to sleep in. Lifting generally happened at 6:30 or 7:15 depending on position, but the final day didn't start until late morning. This would be a great place for a tangent about standardizing data collection times, but I think you get the point without it.
+
+```{r, echo=FALSE, fig.align='center', out.width = "50%"}
+knitr::include_graphics("NotPrePost.png")
+```
+<center><font size="2">cbaileyphd.com</font></center><br>
+
+#### Extremely Fatiguing or Invasive
+
+So this should be pretty logical, but if we are testing something on a regular basis (i.e. weekly) in and out of season, it can't be overly fatiguing. If fatigue or soreness from monitoring negatively impact a players on the field performance, we are missing the point. Depending on the level, someone might be losing their job. 
+
+Testing also should not be overly invasive. Whenever possible, we should try to adapt to the sport and potentially monitor something that is already occuring. For example, during baseball batting practice, position players who are not in the hitting group on the field or in the cage often practice baserunning. This could easily be monitored (assuming they give a good effort). This is extremely beneficial in that you are not creating extra duties for the players or taking extra time. In professional sports time is money and collegiate sports are generally bound by NCAA hours, so we must be very efficient with athletes' time. 
+
+These two things should heavily influence our test selection. Maximal effort jumps sound like a good choice, since they can be done quickly and they don't cause excessive fatigue. Weekly 1RM squats or IMTPs on the other hand, not so much.
+
+#### Finally athlete monitoring should not be extremely time consuming for the S&C coach
+I'll start this one off with a caveat. It will be time consuming, but you need to weigh the pros and cons. There is a reason many professional teams are hiring people to do this full-time. If you are one of those people, congrats. If you are an S&C coach who is dabbling in sport science to make you a better coach and help you offer better training to your athletes, congrats and keep it up. That being said, you do need to balance your time. 
+
+Something needs to be reevaluated if you are spending so much time in front of the computer that you don't have time to coach your athletes. If you don't have much experience with data analysis and coding, this will take some time, but it is no different than learning anything else or just working hard on something in general. You won't learn it overnight and you never completely learn anything. There will always be a shiny new toy that you can pick up. 
+
+Depending on your budget, you could buy software to do this for you. If that is the case, this likely won't take up as much time and you won't need any coding experience. But, you should have some knowledge of what is going on under the hood. Otherwise, you might not catch mistakes and bad data.
+
+## Why monitor?
+
+If you've read this far, I'm assuming you are willing to put in the work or have the budget to buy some software to collect and visualize your data. So you probably don't need much selling on athlete monitoring, but you may need to sell someone who's in charge of your budget. Here are some of the main reasons justifying athlete monitoring practices.
+
+#### Increased ability to understand the overall training process ([Sands, 1991](https://journals.lww.com/nsca-scj/Citation/1991/08000/PRINCIPLES_OF_PROGRAM_DESIGN__Monitoring_the_elite.12.aspx))
+
+Hopefully our training sessions are prescribed with a set volume and intensity in mind. Here, we will consider each training session an indivitual "stimulus." Each stimulus will produce a response. We often first learn this from Hans Selye's General Adaptation Syndrome or an adaptation of it. Consider the figure below. We have a training stimulus that causes fatigue and some damage. We the provide recovery time and the fatigue dissipates and hopefully some adapation occurs that puts the athlete in a better position to perform than when they started. They essentially have a new level of preparedness or a "supercompensation." 
+
+```{r, echo=FALSE, fig.align='center', out.width = "70%"}
+knitr::include_graphics("OptimalResponse.png")
+```
+
+Let's imagine that we are training [Goldilocks](https://en.wikipedia.org/wiki/Goldilocks_and_the_Three_Bears) and this is the story of "Goldilocks and the Three Training Stimuli." The figure above would be the final stimulus in the story that is "just right." This is what we hope for when we prescribe training. In reality, we may be "too hot" or "too cold" sometimes and without monitoring, we may not know it.
+
+In this case, too hot or too cold would be a training stimulus that is either too large or too small. Or it could be that the recovery time and/or nutrition was not optimal. The images below represent that. First is the training stimulus that is too small and it is followed by a larger stimulus.
+
+```{r, echo=FALSE, fig.align='center', out.width = "70%"}
+knitr::include_graphics("SmallStimulus.png")
+knitr::include_graphics("LargeStimulus.png")
+```
+
+We do not get the desired increase in level of preparedness with either of these scenarios. The first is too small and we don't even return to the initial level with the second. The second could be by design if we are in a planned overreaching phase. If that is the case with proper recovery time and nutrition, we should see an even greater supercompensation. 
+
+The stimulus that is too large or lacks adequate recovery time becomes a problem when we additional similar stimuli are added on. This could lead to overtraining. It's important to remember that our athletes also have workloads from practice and competition that should be considered in their training volume. We can design a great program with adequate stimulus size and recovery time, but it may not work if we are only considering what is happening in the weight room. This added volume can also lead less than optimal recovery and this fatigue will mask their ability to express fitness. An example of this can be seen in the figure below.
+
+```{r, echo=FALSE, fig.align='center', out.width = "70%"}
+knitr::include_graphics("RepeatLargeStimulus.png")
+```
+
+#### Provides direct feedback of the athlete's progress (or regress) to the coaching staff ([Sands, 1991](https://journals.lww.com/nsca-scj/Citation/1991/08000/PRINCIPLES_OF_PROGRAM_DESIGN__Monitoring_the_elite.12.aspx))
+
+Sport coaches are also in need of information on their athlete's progression. Without the data, all they have to go on is what they see on the field. This will help validate your program as well. Imagine your team is having a bad year. Having data showing that the athletes are progressing in their physical development is quite valuable in times when their win/loss records don't show it. 
+
+#### Helps us determine the variables that may contribute to optimal performance (Talent ID) ([Vaeyens et al., 2008](https://www.ncbi.nlm.nih.gov/pubmed/18712939))
+
+Hopefully a lot of the data we collect relates to actual sport performance. We train for specific adapations and those adapations should be specific to the sport. So if what we test assesses those qualities, the data should be somewhat predictive of performance. If we find that it is not, we may need to reevaluate our test. The figure below is an example of using data from an inertial measurement unit (IMU) and correlating it with ball exit velocity in baseball players. While this plot may look fancy (created with the R performanceanalytics package), it shows very little relationship with ball exit velocity. Bat speed at impact seems to be the only variable with predictive value here. All the other relationships are between the IMU collected variables. 
+
+If we have data that correlate strongly with specific sport performance measures, they may be used to identify better performing athletes. This may be helpful for those in your organization that are in charge of talent identification and scouting. This could also be used to classify athletes into groups. Certain positions may produce certain types of data and there may be justification here to evaluate them based off of their performance.
+
+```{r,  echo=FALSE, fig.align='center', out.width = "80%"}
+knitr::include_graphics("corplot.png")
+```
+<center><font size="2">Eusufzai & Bailey, 2019</font></center>
+<br>
+
+All this being said, we need to be careful of [Goodhart's Law](https://en.wikipedia.org/wiki/Goodhart%27s_law) here. 
+
+>"When a measure becomes a target, it ceases to be a good measure"
+ `r tufte::quote_footer('Marilyn Strathern')`
+
+If we start training for the data, we may be missing the boat here. Training should be designed to enhance physical preparation. The data may be indicative of the preparation level, but the data does not cause it. This could also be looked at as an endogeneity or correlation/causation problem.
+
+#### Can help distinguish the factors associated with injury, overtraining, and athlete burnout ([Hoffman and Kaminsky 2000](https://www.researchgate.net/publication/297902356_Use_of_performance_testing_for_monitoring_overtraining_in_elite_youth_basketball_players), [Foster 1998](https://www.ncbi.nlm.nih.gov/pubmed/9662690))
+I think this has already been covered in the "understanding the training process" point above, but it deserves its own heading. If we aren't testing, we don't know. We can evaluate this with decreases in performance measures as well as with subjective data (surveys, questionnaires, etc.). If we use subjective data, I prefer those that attach objective value to the responses, because it makes them easier to understand and interpret (e.g. session RPE). Some examples of variables that may be related to injury, overtraining, and athlete burnout are below.
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%"}
+knitr::include_graphics("sRPETL.png")
+knitr::include_graphics("PMS.png")
+knitr::include_graphics("Sleep.png")
+knitr::include_graphics("Soreness.png")
+```
+<center><font size="2">cbaileyphd.com</font></center><br>
+
+#### Can provide information about when it is safe for an athlete to return to competition ([Johnston, 2014](https://dc.etsu.edu/etd/2336/))
+Following an injury, an athlete goes through many tests to satisfy the physicians and athletic trainers that they are ready to return to play. These assessments can be used from a monitoring perspective as well to track progress and give a data-driven estimation of when the athlete will be able to get back on the field. 
+
+In a novel protocol, Brian Joshnston used bilateral force production and asymmetry to provide additional information for return to play for an athlete post-ACL reconstruction. His athlete passed many of the traditional retrun to play assessments but still failed on jump landings as evaluated with bilateral force plates.
+
+```{r,  echo=FALSE, fig.align='center', out.width = "70%"}
+knitr::include_graphics("DualFPs.png")
+```
+
+Using this type of data from a monitoring perspective, we can see how an athlete changes over time and could make a better prediction of when an athlete can return. 
+
+```{r, echo=FALSE, fig.show = "hold", out.width = "50%"}
+knitr::include_graphics("SI1.png")
+knitr::include_graphics("SI2.png")
+```
+<center><font size="2">cbaileyphd.com</font></center><br>
+
+## Conclusion (for part 1)
+
+Athlete monitoring can be a valuable asset to your program. This is probably why many teams are now investing in sport science staff and infrastructure. There seems to be plenty of data justifying its inclusion in sports. But, there are plenty of ways to fall on our face while trying to incorporate it. Hopefully this information helped you and may prevent some of those issues.
+
+This was the first part of a lecture dealing with these issues. Thanks for reading. Part 2 will deal more with the currently available wirless technology and some of the issues with it.
+
+#### References
+ - Anagnost, NG, Lates, A, Taber, CB. (2018). [Validity of a wireless inertia measurement device in quantifying performance in vertical jumping tests.](https://www.researchgate.net/publication/329947508_VALIDITY_OF_A_WIRELESS_INERTIA_MEASUREMENT_DEVICE_IN_QUANTIFYING_PERFORMANCE_IN_VERTICAL_JUMPING_TESTS) Proceedings of the 13th Annual Coaching and Sport Science College, Johnson City, TN, USA.
+- Atkinson, G, Nevill, AM. (1998). [Statistical methods for assessing measurement error (reliability) in variables relevant to sports medicine.](https://www.ncbi.nlm.nih.gov/pubmed/9820922) Sports Med 26:217-238.
+- Bailey, CA, McInnis, TC, and Batcher, JJ. (2016). [Bat Swing Mechanical Analysis with an Inertial Measurement Unit: Reliability and Implications for Athlete Monitoring.](https://www.researchgate.net/publication/309459215_Bat_swing_mechanical_analysis_with_an_inertial_measurement_unit_reliability_and_implications_for_athlete_monitoring) Journal of Trainology, 5(2), 42-44.
+- Beckham, G, Sato, K, Suchomel, T, Chiang, CY, Gleason, B, Sands, WA, Bailey, CA, Stone, MH. (2013). [The application of accelerometry to weightlifting: Current challenges.](https://www.researchgate.net/publication/261159434_The_application_of_accelerometry_to_weightlifting_current_challenges) Proceedings of the Eighth Annual Coaches and Sport Science College, Johnson City, TN, 14-16.
+- Bland JM, Altman DG. (1986). [Statistical methods for assessing agreement between two methods of clinical measurement.](https://www.ncbi.nlm.nih.gov/pubmed/2868172) Lancet, 1:307-310.
+- Driggers, A, Bingham, G, Bailey, CA. (2018). [The relationship of throwing arm mechanics and elbow varus torque: Letter to the Editor.](https://journals.sagepub.com/doi/full/10.1177/0363546518809061) American Journal of Sports Medicine 47(1).
+- Foster, C. (1998). [Monitoring training in athletes with reference to overtraining syndrome.](https://www.ncbi.nlm.nih.gov/pubmed/9662690) Med. Sci. Sports Exerc. 30:1164–1168.
+- Hoffman, J., Kaminsky, M. (2000). [Use of performance testing form monitoring overtraining in elite youth basketball players.](https://www.researchgate.net/publication/297902356_Use_of_performance_testing_for_monitoring_overtraining_in_elite_youth_basketball_players) Strength and Conditioning Journal, 22(6):54-62.
+- Johnston, B. (2014). [Exploring the Use of a Jumps Protocol as a Return-To-Play Guideline Following Anterior Cruciate Ligament Reconstruction](https://dc.etsu.edu/etd/2336/) Digital Commons East Tennessee State University.
+- Morán-Navarro, R, Martinez-Cava, A, Sánchez-Medina, L. (2019). [Movement velocity as a measure of level of effort during resistance exercise.](https://www.ncbi.nlm.nih.gov/pubmed/29944141) J Strength Cond Res, 33(6):1496-1504.
+- Nuzzo, JL, Anning, JH, Scharfenberg, JM. (2011). [Intersession Reliability of Three Devices Used to Measure Countermovement Vertical Jump Height.](https://www.ncbi.nlm.nih.gov/pubmed/21804426) J Strength Cond Res 25(p) S68.
+- Qin, Z, Baron, L, Birglen, L. [Robust Design of Inertial Measurement Units Based on Accelerometers.](https://www.researchgate.net/publication/245373643_Robust_Design_of_Inertial_Measurement_Units_Based_on_Accelerometers) Journal of Dynamic Systems Measurement and Control 131(3), 2009.
+- Rodríguez-Marroyo J.A., Antoñan C. (2015). [Validity of the session rating of perceived exertion for monitoring exercise demands in youth soccer players.](https://www.ncbi.nlm.nih.gov/pubmed/25202917) International Journal of Sport Phsyiology and Performance 10(3):404-7.
+- Sands, W.A. (1991). [Monitoring the elite female gymnast.](https://journals.lww.com/nsca-scj/Citation/1991/08000/PRINCIPLES_OF_PROGRAM_DESIGN__Monitoring_the_elite.12.aspx) National Strength and Conditioning Association Journal, 13(4):66-72.
+- Sato, K, Beckham, G, Carroll, K, Bazyler, C, Sha, Z, Stone, Haff, GG. (2015). [Validity of wireless device measuring velocity of resistance exercises.](https://www.researchgate.net/publication/275035293_Validity_of_Wireless_Device_Measuring_Velocity_of_Resistance_Exercises) J Trainology, 4(1):15-18.
+- Samozino, P, Edouard, P, Sangnier, S, Brughelli, M, Gimenez, P, and Morin, JB. (2014). [Force-velocity profile: Imbalance determination and effect on lower limb ballistic performance.](https://www.ncbi.nlm.nih.gov/pubmed/24227123) Int. J. Sports Med. 35,505–510. 
+- Sampson, J.A., Murray, A., Williams, S., Sullivan, A., Fullagar, H. K. (2019). [Subjective Wellness, Acute:Chronic Workloads, and Injury Risk in College Football](https://journals.lww.com/nsca-jscr/Abstract/publishahead/Subjective_Wellness,_Acute__Chronic_Workloads,_and.94944.aspx). J Strength Cond Res <i>Epub Ahead of Print</i>.
+- Walter, PL. (2007). [The history of the accelerometer.](http://qringtech.com/TryMe/wp-content/uploads/2014/01/HistoryOfTheAccelerometer.pdf) Sound and Vibration, published January 2007.
+- Vaeyens, R., Lenoir, M., Williams, A.M., Phillipaerts, R.M. (2008). [Talent identification and development programmes in sport](https://www.ncbi.nlm.nih.gov/pubmed/18712939) : current models and future directions. Sports Med, 38(9):703-714.
+
